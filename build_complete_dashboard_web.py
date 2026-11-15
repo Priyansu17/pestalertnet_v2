@@ -490,7 +490,14 @@ html_content = f"""<!DOCTYPE html>
       text-align: left;
     }}
 
-    /* ========================================================================= */
+        @media (max-width: 1023px) {{
+      aside {{
+        position: static !important;
+        top: auto !important;
+      }}
+    }}
+
+/* ========================================================================= */
     /* MOBILE PHONE OPTIMIZATION ENGINE (max-width: 640px)                       */
     /* ========================================================================= */
     @media (max-width: 640px) {{
@@ -846,7 +853,7 @@ html_content = f"""<!DOCTYPE html>
       <!-- ========================================================================= -->
       <!-- LEFT SIDEBAR: LOCATION & SEQUENCE SELECTOR                                -->
       <!-- ========================================================================= -->
-      <aside class="lg:col-span-4 glass-surface p-6 space-y-5 sticky top-24 card-magnetic">
+      <aside class="lg:col-span-4 glass-surface p-4 sm:p-6 space-y-5 static lg:sticky lg:top-24 card-magnetic">
         
         <div class="border-b border-white/[0.08] pb-3">
           <h2 class="font-display font-bold text-base flex items-center gap-2" style="color: var(--text-primary);">
