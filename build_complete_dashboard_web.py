@@ -3280,9 +3280,9 @@ html_content = f"""<!DOCTYPE html>
       const mapContainer = document.getElementById('interactiveLeafletMap');
       if (!mapContainer || leafletMapInstance) return;
 
-      const cartoDark = L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
+      const cartoDark = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{{z}}/{{x}}/{{y}}{{r}}.png', {{
         maxZoom: 18,
-        attribution: '&copy; CartoDB &bull; OpenStreetMap'
+        attribution: '&copy; Stadia Maps &bull; &copy; OpenMapTiles &bull; &copy; OpenStreetMap'
       }});
 
       const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
