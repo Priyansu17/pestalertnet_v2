@@ -445,6 +445,70 @@ html_content = f"""<!DOCTYPE html>
     ::-webkit-scrollbar-track {{ background: transparent; }}
     ::-webkit-scrollbar-thumb {{ background: rgba(148, 163, 184, 0.25); border-radius: 3px; }}
     ::-webkit-scrollbar-thumb:hover {{ background: var(--accent-color); }}
+
+    /* Info Tooltip Icon */
+    .info-tip {{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      color: #10B981;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: help;
+      margin-left: 4px;
+      vertical-align: middle;
+      position: relative;
+    }}
+    .info-tip:hover::after {{
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f172a;
+      color: #f8fafc;
+      font-size: 11px;
+      font-weight: 400;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: normal;
+      width: 230px;
+      z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      pointer-events: none;
+      line-height: 1.35;
+      text-align: left;
+    }}
+
+    @media print {{
+      body {{
+        background: #ffffff !important;
+        color: #111827 !important;
+        background-image: none !important;
+      }}
+      aside, nav, .tab-nav-bar, #charMascotWrapper, .modal-backdrop, .no-print, button, input, select {{
+        display: none !important;
+      }}
+      #tabPanel-risk {{
+        display: block !important;
+      }}
+      .glass-surface {{
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: none !important;
+        color: #111827 !important;
+      }}
+      * {{
+        color: #111827 !important;
+        text-shadow: none !important;
+      }}
+    }}
   </style>
 </head>
 <body class="min-h-screen flex flex-col font-sans selection:bg-brandEmerald-500 selection:text-slate-950 relative">
@@ -1130,22 +1194,53 @@ html_content = f"""<!DOCTYPE html>
         <!-- ======================================================================= -->
         <div id="tabPanel-risk" class="space-y-6">
           
-          <!-- Key Metric Cards Strip -->
+          <!-- 1-Click Operational Actions: Download CSV, Print PDF, Term Guide -->
+          <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl glass-surface border border-white/[0.08] no-print">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-bold uppercase text-brandEmerald-400">📥 Operational Exports &amp; Reports</span>
+              <span class="text-[11px] hidden sm:inline" style="color: var(--text-muted);">(Export cell data or print 1-page situational brief)</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="downloadCellCSV()" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/40 hover:bg-brandEmerald-500/30 transition-all flex items-center gap-1.5 shadow-sm">
+                <span>📥</span> Download CSV
+              </button>
+              <button onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-800/80 text-slate-200 border border-slate-700 hover:bg-slate-700/80 transition-all flex items-center gap-1.5 shadow-sm">
+                <span>🖨️</span> Print / Save PDF
+              </button>
+              <button onclick="openModal('modalGlossary')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all flex items-center gap-1.5 shadow-sm">
+                <span>💡</span> Term Guide (?)
+              </button>
+            </div>
+          </div>
+
+          <!-- Key Metric Cards Strip with Beginner Tooltips -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div class="glass-surface p-4 text-center card-magnetic">
-              <span class="text-[10px] font-mono uppercase" style="color: var(--text-muted);">Outbreak Probability</span>
+              <span class="text-[10px] font-mono uppercase flex items-center justify-center gap-1" style="color: var(--text-muted);">
+                Outbreak Probability
+                <span class="info-tip" data-tip="Estimated probability of gregarious locust outbreak occurring within the next 7 days from the 21-day BiLSTM analysis.">?</span>
+              </span>
               <span id="cardMetricProb" class="text-xl sm:text-2xl font-display font-extrabold text-brandEmerald-500 mt-1 block" style="text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);">65.2%</span>
             </div>
             <div class="glass-surface p-4 text-center card-magnetic">
-              <span class="text-[10px] font-mono uppercase" style="color: var(--text-muted);">Model Score Band</span>
+              <span class="text-[10px] font-mono uppercase flex items-center justify-center gap-1" style="color: var(--text-muted);">
+                Model Score Band
+                <span class="info-tip" data-tip="Risk band: Safe Quiescent (<35%), Elevated Breeding Watch (35–70%), Critical Outbreak Alert (>=70%).">?</span>
+              </span>
               <span id="cardMetricBand" class="text-xs sm:text-sm font-bold mt-1 block truncate text-amber-500">Moderate model score</span>
             </div>
             <div class="glass-surface p-4 text-center card-magnetic">
-              <span class="text-[10px] font-mono uppercase" style="color: var(--text-muted);">Sequence Date</span>
+              <span class="text-[10px] font-mono uppercase flex items-center justify-center gap-1" style="color: var(--text-muted);">
+                Sequence Date
+                <span class="info-tip" data-tip="Historical 21-day observation window end date from FAO RAMSES ground surveys and NASA POWER weather.">?</span>
+              </span>
               <span id="cardMetricDate" class="text-xs sm:text-sm font-mono font-bold mt-1 block truncate" style="color: var(--text-primary);">2023-08-10</span>
             </div>
             <div class="glass-surface p-4 text-center card-magnetic">
-              <span class="text-[10px] font-mono uppercase" style="color: var(--text-muted);">Window Length</span>
+              <span class="text-[10px] font-mono uppercase flex items-center justify-center gap-1" style="color: var(--text-muted);">
+                Window Length
+                <span class="info-tip" data-tip="21-day rolling historical lookback window feeding the BiLSTM + Self-Attention network.">?</span>
+              </span>
               <span class="text-xs sm:text-sm font-mono font-bold mt-1 block" style="color: var(--text-primary);">21 Days</span>
             </div>
           </div>
@@ -1685,6 +1780,63 @@ html_content = f"""<!DOCTYPE html>
             Close ✕
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- BEGINNER'S GLOSSARY & SCIENTIFIC GUIDE MODAL                              -->
+  <!-- ========================================================================= -->
+  <div id="modalGlossary" class="modal-backdrop fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-4" onclick="if(event.target===this)closeModal('modalGlossary')">
+    <div class="modal-panel glass-surface max-w-2xl w-full border border-white/10 overflow-hidden max-h-[90vh] flex flex-col" style="box-shadow: var(--neon-glow-emerald);">
+      <div class="flex items-center justify-between p-4 border-b border-white/[0.08]">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">💡</span>
+          <div>
+            <h3 class="font-display font-bold text-base" style="color: var(--text-primary);">Beginner's Field &amp; AI Glossary</h3>
+            <span class="text-[10px] font-mono text-brandEmerald-400">Plain-English explanations of agro-meteorological and deep learning terms</span>
+          </div>
+        </div>
+        <button onclick="closeModal('modalGlossary')" class="text-xl font-bold w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors" style="color: var(--text-muted);">✕</button>
+      </div>
+      <div class="p-4 sm:p-6 space-y-3 overflow-y-auto text-xs leading-relaxed" style="color: var(--text-secondary);">
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">🌦️ T2M — 2-Metre Air Temperature (°C)</strong>
+          <span>Air temperature measured at 2 meters above ground. Desert locust eggs incubate between 20°C and 35°C; extreme cold stops hatching, while high heat accelerates maturation.</span>
+        </div>
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">🌧️ PRECTOTCORR — Corrected Daily Precipitation (mm/day)</strong>
+          <span>Satellite-derived rainfall from NASA POWER reanalysis. Rainfall exceeding 15–20 mm moistens desert sand for egg-pod oviposition and sparks ephemeral annual vegetation flushes.</span>
+        </div>
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">💧 RH2M — Relative Humidity (%)</strong>
+          <span>Atmospheric moisture at 2m. High humidity (&gt;60%) protects fragile hopper nymphs from desiccation and keeps pastures fresh for feeding.</span>
+        </div>
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">💨 WS2M — 2-Metre Wind Speed (m/s)</strong>
+          <span>Surface wind velocity. Swarms require light morning winds to take off and subsequently drift downwind at speeds up to 150 km/day.</span>
+        </div>
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">🧠 BiLSTM — Bidirectional Long Short-Term Memory</strong>
+          <span>A recurrent neural network that processes 21 consecutive days of weather backwards and forwards in time to capture both immediate rainfall shocks and cumulative soil moisture build-up.</span>
+        </div>
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">🔬 Integrated Gradients (Captum XAI)</strong>
+          <span>An explainable AI technique that quantifies exactly how much each individual weather feature pushed the outbreak probability up (red / positive) or down (green / negative) relative to a neutral baseline.</span>
+        </div>
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">⚖️ Completeness Delta (|Δ| &lt; 0.05)</strong>
+          <span>Mathematical sanity check: proves that the sum of all feature attributions equals the difference between the model's actual prediction and baseline. Confirms explanations are 100% faithful.</span>
+        </div>
+        <div class="p-3 rounded-xl border border-white/10" style="background: rgba(0,0,0,0.2);">
+          <strong class="text-brandEmerald-400 text-sm block mb-1">⏳ 28-Day Temporal Embargo</strong>
+          <span>A strict 28-day gap enforced between the training, validation, and testing partitions. This completely prevents data leakage across time, ensuring real-world test validity.</span>
+        </div>
+      </div>
+      <div class="p-3 sm:p-4 border-t border-white/[0.08] flex justify-end">
+        <button onclick="closeModal('modalGlossary')" class="px-4 py-1.5 rounded-lg bg-brandEmerald-500 hover:bg-brandEmerald-600 text-white font-bold text-xs transition-colors">
+          Got it ✓
+        </button>
       </div>
     </div>
   </div>
@@ -2539,6 +2691,40 @@ html_content = f"""<!DOCTYPE html>
         u.rate = 1.0;
         window.speechSynthesis.speak(u);
       }}
+    }}
+
+    function downloadCellCSV() {{
+      const cellKey = window.currentCellKey || "27.5_71.25";
+      const prob = document.getElementById("dialBigProb") ? document.getElementById("dialBigProb").innerText : "65.2%";
+      const band = document.getElementById("cardMetricBand") ? document.getElementById("cardMetricBand").innerText : "Moderate model score";
+      const date = document.getElementById("cardMetricDate") ? document.getElementById("cardMetricDate").innerText : "2023-08-10";
+      
+      let csv = "PestAlertNet - Agricultural Field Situation Report\n";
+      csv += "Parameter,Value\n";
+      csv += `Grid Location Cell,${{cellKey}}\n`;
+      csv += `Sequence Date,${{date}}\n`;
+      csv += `Predicted Outbreak Likelihood,${{prob}}\n`;
+      csv += `Model Score Band,${{band}}\n`;
+      csv += "Input Window,21 days\n";
+      csv += "Forecasting Horizon,7 days ahead\n";
+      csv += "Model Checkpoint,models/best_model.pt (Frozen BiLSTM + Attention)\n";
+      csv += "Data Lineage,FAO RAMSES Ground Surveys + NASA POWER Climatology (Historical Research Database)\n\n";
+      
+      csv += "Key Atmospheric & Agronomic Factors\n";
+      csv += "Feature Name,Description,Impact\n";
+      csv += "PRECTOTCORR,Corrected Daily Precipitation,Primary egg incubation driver\n";
+      csv += "T2M,2-Meter Air Temperature,Biological maturation rate\n";
+      csv += "RH2M,2-Meter Relative Humidity,Vegetation moisture & hopper survival\n";
+      csv += "WS2M,2-Meter Wind Speed,Swarm flight & advection direction\n";
+      
+      const blob = new Blob([csv], {{ type: "text/csv;charset=utf-8;" }});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `pestalertnet_report_${{cellKey}}_${{date}}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }}
 
     function openModal(id) {{
