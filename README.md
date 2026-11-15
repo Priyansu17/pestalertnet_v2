@@ -21,6 +21,7 @@ Powered by a **Bidirectional LSTM with Multihead Self-Attention**, PestAlertNet 
 - [Explainable AI (XAI) Methodology](#-explainable-ai-xai-methodology)
 - [Empirical Evaluation & Benchmarks](#-empirical-evaluation--benchmarks)
 - [Dual Frontend Interfaces](#-dual-frontend-interfaces)
+- [Interactive Jupyter Notebooks](#-interactive-jupyter-notebooks)
 - [Repository Structure](#-repository-structure)
 - [Getting Started & Installation](#-getting-started--installation)
 - [Data Provenance & Acknowledgments](#-data-provenance--acknowledgments)
@@ -229,6 +230,27 @@ The web dashboard embeds high-resolution field photography illustrating:
 
 ---
 
+## 📓 Interactive Jupyter Notebooks
+
+The repository includes a comprehensive, publication-grade suite of **5 executable Jupyter notebooks** in `notebooks/` tracking every phase of development from raw data acquisition to explainable AI, complete with pre-rendered execution outputs, metrics, and high-resolution dark-themed figures:
+
+| Notebook | Focus & Methodology | Key Outputs & Visualizations |
+|:---|:---|:---|
+| **[`01_data_acquisition_and_exploration.ipynb`](notebooks/01_data_acquisition_and_exploration.ipynb)** | • Raw FAO RAMSES surveillance records ingestion<br>• NASA POWER 4-parameter climatology probe<br>• Spatial bounding box & temporal coverage validation | • Geographic footprint map across 1,489 grid cells<br>• Raw climatological variable histograms<br>• Satellite missingness profile |
+| **[`02_data_cleaning_and_preprocessing.ipynb`](notebooks/02_data_cleaning_and_preprocessing.ipynb)** | • RAMSES data cleaning (filtering `DUBIOUS` / `UNCLEAR` records)<br>• Coordinate snapping to $0.5^\circ \times 0.625^\circ$ planetary grid<br>• NASA POWER `-999` sentinel handling & binary missingness masks<br>• Train-only $z$-score feature scaling & leak-free validation guardrails | • RAMSES cleaning waterfall & phase distribution funnel<br>• Lat/lon snapping displacement error analysis<br>• Daily missingness rates across all time-steps<br>• Train vs non-train $\mu$ & $\sigma$ scaler parameters |
+| **[`02_temporal_preprocessing_and_tensors.ipynb`](notebooks/02_temporal_preprocessing_and_tensors.ipynb)** | • Causal 21-day sliding window sequence generation<br>• 7-day forward outbreak horizon definition<br>• 28-day temporal embargo gap enforcement | • 25-feature composition chart<br>• Split balance breakdown (Train / Val / Test)<br>• 3D sequence tensor heatmap $(48544, 21, 25)$ |
+| **[`03_model_architecture_and_training.ipynb`](notebooks/03_model_architecture_and_training.ipynb)** | • BiLSTM + Multihead Self-Attention architecture breakdown<br>• Parameter distribution across Conv1D, BiLSTM, and Attention<br>• Focal Loss + AdamW with OneCycleLR training convergence | • Layer-by-layer parameter allocation chart<br>• Training vs validation loss & F1 convergence curves<br>• Learning rate scheduling trajectory |
+| **[`04_evaluation_and_explainable_ai.ipynb`](notebooks/04_evaluation_and_explainable_ai.ipynb)** | • Frozen out-of-time test split evaluation ($N=6,684$)<br>• ROC-AUC ($0.9638$), PR-AUC ($0.8659$), F1 ($0.8119$)<br>• Decision threshold ($\tau$) sensitivity analysis<br>• Captum Integrated Gradients feature attributions & XAI case studies | • ROC & Precision-Recall curves with baseline comparisons<br>• Confusion matrix & threshold sweep curves<br>• Global feature importance rankings<br>• Temporal attribution heatmaps for outbreak vs safe predictions |
+
+### Running the Notebooks
+To run or re-execute all notebooks headlessly in sequence:
+```bash
+python scripts/execute_notebooks.py
+```
+Or open any notebook directly in Jupyter Lab / VS Code using the `pestalertnet` Python kernel.
+
+---
+
 ## 📁 Repository Structure
 
 ```
@@ -261,6 +283,13 @@ pestalertnet_v2/
 │
 ├── models/
 │   └── best_model.pt                 # Pre-trained PyTorch BiLSTM+Attention checkpoint (16.34 MB)
+│
+├── notebooks/                        # Publication-grade, fully executed Jupyter notebooks
+│   ├── 01_data_acquisition_and_exploration.ipynb   # Raw FAO RAMSES & NASA POWER data exploration
+│   ├── 02_data_cleaning_and_preprocessing.ipynb    # End-to-end cleaning, snapping, sentinel & scaler pipeline
+│   ├── 02_temporal_preprocessing_and_tensors.ipynb # Rolling-window sequence generation & split validation
+│   ├── 03_model_architecture_and_training.ipynb    # BiLSTM + Attention architecture & training telemetry
+│   └── 04_evaluation_and_explainable_ai.ipynb      # Metrics, ROC/PR curves, and Captum Integrated Gradients
 │
 ├── outputs/
 │   ├── ig_full_test_20261014T014244Z/# Frozen test set IG evaluation figures & CSVs
