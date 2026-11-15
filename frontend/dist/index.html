@@ -52,6 +52,10 @@
   <!-- Chart.js for Timeline -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
+  <!-- Leaflet CSS & JS for Satellite & Terrain Geospatial Maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <style>
     /* ========================================================================= */
     /* THEME SYSTEM & NEON GLOW ENGINE                                           */
@@ -1190,6 +1194,9 @@
               <button onclick="openModal('modalGlossary')" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all flex items-center gap-1.5 shadow-sm">
                 <span>💡</span> Term Guide (?)
               </button>
+              <button onclick="toggleAudioMute()" id="btnAudioToggle" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-teal-500/20 text-teal-300 border border-teal-500/40 hover:bg-teal-500/30 transition-all flex items-center gap-1.5 shadow-sm" title="Toggle audio alert chime">
+                <span id="audioIcon">🔔</span> <span id="audioLabel">Chime: ON</span>
+              </button>
             </div>
           </div>
 
@@ -1223,6 +1230,29 @@
               </span>
               <span class="text-xs sm:text-sm font-mono font-bold mt-1 block" style="color: var(--text-primary);">21 Days</span>
             </div>
+          </div>
+
+          <!-- Interactive Recession Belt Map (Satellite vs Terrain Layer Switcher) -->
+          <div class="glass-surface p-4 sm:p-5 card-magnetic space-y-3" style="box-shadow: var(--neon-glow-emerald);">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.08] pb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🛰️</span>
+                <div>
+                  <h3 class="font-display font-bold text-sm sm:text-base flex items-center gap-2" style="color: var(--text-primary);">
+                    Interactive Recession Belt Geospatial Map
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/30">Satellite &bull; Terrain &bull; Dark</span>
+                  </h3>
+                  <p class="text-[11px]" style="color: var(--text-muted);">Switch between Satellite imagery (Esri), Topographic terrain (OpenTopoMap), and Carto Dark basemaps &bull; Click any pulsating marker to inspect</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 text-xs font-mono shrink-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+                <span class="text-[11px] text-red-400 font-bold">&bull; High Threat</span>
+                <span class="text-[11px] text-amber-400 font-bold ml-1">&bull; Watch</span>
+                <span class="text-[11px] text-brandEmerald-400 font-bold ml-1">&bull; Safe</span>
+              </div>
+            </div>
+            <div id="interactiveLeafletMap" class="w-full h-72 sm:h-80 rounded-xl overflow-hidden border border-white/10 z-0 relative"></div>
           </div>
 
           <!-- Hero Diagnostic Panel (Radial Dial + Atmospheric Diagnostic + 2D Character Mascot) -->
@@ -1284,8 +1314,122 @@
                     Critical Outbreak Alert: Soil moisture exceeds 20mm. Mobilize vehicle-mounted ULV sprayers to intercept hoppers before adult fledglings take flight.
                   </p>
                 </div>
+
+                <!-- Dynamic Decision Threshold Slider (	au) -->
+                <div class="p-3.5 rounded-xl border space-y-2.5" style="background: rgba(0,0,0,0.06); border-color: var(--glass-border);">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold font-mono flex items-center gap-1.5" style="color: var(--text-primary);">
+                      <span>🎚️</span> Decision Threshold (&tau;):
+                      <span id="valThresholdDisplay" class="text-brandEmerald-400 font-mono font-bold text-sm">0.50</span>
+                    </span>
+                    <span id="thresholdModeLabel" class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/30">
+                      Standard Operational
+                    </span>
+                  </div>
+                  
+                  <input type="range" id="sliderThreshold" min="0.10" max="0.90" step="0.05" value="0.50" oninput="onThresholdSliderChange(this.value)" class="w-full accent-brandEmerald-500 cursor-pointer">
+                  
+                  <!-- Quick Preset Mode Buttons -->
+                  <div class="grid grid-cols-3 gap-1.5 pt-1 text-[10px] font-mono">
+                    <button onclick="setThresholdPreset(0.30)" id="btnThresh-030" class="py-1 px-1.5 rounded-lg border transition-all text-center hover:bg-white/5 truncate" style="border-color: var(--glass-border); color: var(--text-muted);" title="Prioritize high recall/sensitivity to detect cryptic solitary-to-transiens clusters">
+                      🛡️ Scouting (&tau;=0.30)
+                    </button>
+                    <button onclick="setThresholdPreset(0.50)" id="btnThresh-050" class="py-1 px-1.5 rounded-lg border transition-all text-center bg-brandEmerald-500/20 text-brandEmerald-400 border-brandEmerald-500/40 font-bold truncate" title="Standard balanced operating threshold">
+                      ⚖️ Standard (&tau;=0.50)
+                    </button>
+                    <button onclick="setThresholdPreset(0.70)" id="btnThresh-070" class="py-1 px-1.5 rounded-lg border transition-all text-center hover:bg-white/5 truncate" style="border-color: var(--glass-border); color: var(--text-muted);" title="Prioritize precision to conserve pesticide reserves for imminent swarms">
+                      ✈️ Spraying (&tau;=0.70)
+                    </button>
+                  </div>
+                </div>
               </div>
 
+            </div>
+          </div>
+
+          <!-- ⚖️ Side-by-Side Outbreak Zone Comparison Section -->
+          <div class="glass-surface p-5 sm:p-6 card-magnetic space-y-4" style="box-shadow: var(--neon-glow-emerald);">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">⚖️</span>
+                <div>
+                  <h3 class="font-display font-bold text-base" style="color: var(--text-primary);">Comparative Outbreak Zone Analysis</h3>
+                  <p class="text-xs" style="color: var(--text-muted);">Compare two recession belt breeding regions side-by-side to evaluate atmospheric deltas</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-mono text-brandEmerald-400 font-bold">Real-Time Deltas (&Delta;)</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Location A Selector & Card -->
+              <div class="p-4 rounded-xl border space-y-3" style="background: rgba(0,0,0,0.06); border-color: var(--glass-border);">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono font-bold uppercase text-brandEmerald-400">Zone A (Reference)</span>
+                  <select id="compareSelectA" onchange="onCompareChange()" class="text-xs font-mono p-1.5 rounded-lg max-w-[200px] sm:max-w-[240px] truncate"></select>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <div>
+                    <span id="compNameA" class="font-display font-bold text-sm block" style="color: var(--text-primary);">Thar Desert</span>
+                    <span id="compCellA" class="text-[10px] font-mono text-slate-400">Lat 27.5, Lon 71.25</span>
+                  </div>
+                  <div class="text-right">
+                    <span id="compProbA" class="font-display font-extrabold text-2xl text-red-400">65.2%</span>
+                    <span id="compBandA" class="text-[9px] font-mono block uppercase text-red-400 font-bold">Critical Outbreak</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-[10px] font-mono pt-2 border-t border-white/[0.06]">
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">RAIN 7D</span><strong id="compRainA" class="text-sky-400">24.5mm</strong></div>
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">TEMP</span><strong id="compTempA" class="text-amber-400">31.9°C</strong></div>
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">HUMID</span><strong id="compHumA" class="text-emerald-400">60.9%</strong></div>
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">WIND</span><strong id="compWindA" class="text-slate-300">5.3m/s</strong></div>
+                </div>
+              </div>
+
+              <!-- Location B Selector & Card -->
+              <div class="p-4 rounded-xl border space-y-3" style="background: rgba(0,0,0,0.06); border-color: var(--glass-border);">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono font-bold uppercase text-amber-400">Zone B (Comparison)</span>
+                  <select id="compareSelectB" onchange="onCompareChange()" class="text-xs font-mono p-1.5 rounded-lg max-w-[200px] sm:max-w-[240px] truncate"></select>
+                </div>
+                <div class="flex items-center justify-between pt-1">
+                  <div>
+                    <span id="compNameB" class="font-display font-bold text-sm block" style="color: var(--text-primary);">Red Sea Coast</span>
+                    <span id="compCellB" class="text-[10px] font-mono text-slate-400">Lat 23.5, Lon 38.75</span>
+                  </div>
+                  <div class="text-right">
+                    <span id="compProbB" class="font-display font-extrabold text-2xl text-amber-400">42.8%</span>
+                    <span id="compBandB" class="text-[9px] font-mono block uppercase text-amber-400 font-bold">Breeding Watch</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-[10px] font-mono pt-2 border-t border-white/[0.06]">
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">RAIN 7D</span><strong id="compRainB" class="text-sky-400">18.2mm</strong></div>
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">TEMP</span><strong id="compTempB" class="text-amber-400">29.4°C</strong></div>
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">HUMID</span><strong id="compHumB" class="text-emerald-400">68.5%</strong></div>
+                  <div class="p-1 rounded bg-white/[0.02]"><span class="text-slate-400 block text-[8px]">WIND</span><strong id="compWindB" class="text-slate-300">3.8m/s</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Environmental Delta Summary Strip -->
+            <div class="p-3 rounded-xl border border-white/[0.08] flex flex-wrap items-center justify-around gap-3 text-xs font-mono" style="background: rgba(0,0,0,0.1);">
+              <div class="flex items-center gap-1.5">
+                <span class="text-slate-400">Risk &Delta;:</span>
+                <span id="deltaProb" class="font-bold text-brandEmerald-400">+22.4% (Zone A higher)</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-slate-400">Rain &Delta;:</span>
+                <span id="deltaRain" class="font-bold text-sky-400">+6.3 mm</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-slate-400">Temp &Delta;:</span>
+                <span id="deltaTemp" class="font-bold text-amber-400">+2.5 °C</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-slate-400">Key Difference:</span>
+                <span id="deltaFactor" class="font-bold text-emerald-400">Soil Moisture Soaking</span>
+              </div>
             </div>
           </div>
 
@@ -1577,13 +1721,51 @@
                 </h3>
                 <p class="text-xs" style="color: var(--text-muted);">Signed daily attribution from Day 1 (oldest observation) to Day 21 (current evaluation day).</p>
               </div>
-              <div class="flex items-center gap-4 text-xs font-mono">
+              <div class="flex flex-wrap items-center gap-3 text-xs font-mono">
                 <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-red-500 shadow-sm" style="box-shadow: 0 0 6px #EF4444;"></span> Escalating Day</div>
                 <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-brandEmerald-500 shadow-sm" style="box-shadow: 0 0 6px #10B981;"></span> Dampening Day</div>
+                <button onclick="exportTimelineChartPNG()" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-white/[0.05] hover:bg-white/[0.1] text-brandEmerald-400 border border-white/10 transition-all flex items-center gap-1 shadow-sm">
+                  <span>📷</span> Export PNG
+                </button>
               </div>
             </div>
             <div class="h-64 sm:h-72 w-full pt-2">
               <canvas id="canvasDayTimeline"></canvas>
+            </div>
+
+            <!-- ⏱️ 21-Day Time-Lapse Scrubber & Animation Player -->
+            <div class="p-4 rounded-xl border border-white/[0.08] space-y-3" style="background: rgba(0,0,0,0.06);">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-base">⏱️</span>
+                  <span class="font-mono font-bold text-xs" style="color: var(--text-primary);">21-Day Outbreak Sequence Time-Lapse</span>
+                  <span id="timeLapseDayBadge" class="px-2 py-0.5 rounded text-[10px] font-mono bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/30">Day 21 (Final Day)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button id="btnPlayTimeLapse" onclick="toggleTimeLapsePlayback()" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-brandEmerald-500 hover:bg-brandEmerald-600 text-white transition-all flex items-center gap-1 shadow-sm">
+                    <span id="playIcon">▶</span> <span id="playLabel">Play Time-Lapse</span>
+                  </button>
+                  <button onclick="resetTimeLapse()" class="px-2 py-1 rounded-lg text-xs font-mono text-slate-400 hover:text-white border border-white/10 transition-colors">
+                    ↺ Reset
+                  </button>
+                </div>
+              </div>
+
+              <!-- Scrubber Slider -->
+              <div class="space-y-1">
+                <input type="range" id="timeLapseScrubber" min="1" max="21" value="21" oninput="onTimeLapseScrub(this.value)" class="w-full accent-brandEmerald-500 cursor-pointer">
+                <div class="flex justify-between text-[10px] font-mono text-slate-500">
+                  <span>Day 1 (Historical Baseline)</span>
+                  <span>Day 7 (Precipitation Pulse)</span>
+                  <span>Day 14 (Hopper Emergence)</span>
+                  <span>Day 21 (Prediction Horizon)</span>
+                </div>
+              </div>
+
+              <!-- Narrative progression caption -->
+              <div id="timeLapseNarrative" class="text-xs font-mono p-2.5 rounded-lg bg-black/20 border border-white/[0.06] text-slate-300">
+                Day 21: Full 21-day observation sequence analyzed. Model forecasts 7-day forward outbreak trajectory.
+              </div>
             </div>
 
             <!-- Expandable 21-day table matching Streamlit -->
@@ -1986,6 +2168,8 @@
       populatePopularCities();
       populateSidebarCells(ALL_CELLS.slice(0, 500));
       populateFeatureLists();
+      initLeafletMap();
+      initCompareSelects();
 
       try {
         const resp = await fetch('cell_manifest.json');
@@ -2442,6 +2626,12 @@
 
       renderXaiDrivers(data.upward, data.downward, data.all_features, data);
       renderDayTimeline(data.timeline, prob / 100.0);
+      updateThresholdDecision();
+      playTacticalChime(prob);
+
+      if (leafletMapInstance && data.lat && data.lon) {
+        leafletMapInstance.panTo([data.lat, data.lon]);
+      }
     }
 
     function onKnobInput() {
@@ -2819,6 +3009,407 @@
         requestAnimationFrame(animate);
       }
       animate();
+    }
+
+    // =========================================================================
+    // FEATURE 6: TACTICAL WEB AUDIO API CHIME ENGINE
+    // =========================================================================
+    let audioCtx = null;
+    let isAudioMuted = false;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleAudioMute() {
+      isAudioMuted = !isAudioMuted;
+      const icon = document.getElementById('audioIcon');
+      const label = document.getElementById('audioLabel');
+      const btn = document.getElementById('btnAudioToggle');
+      if (isAudioMuted) {
+        if (icon) icon.innerText = '🔇';
+        if (label) label.innerText = 'Chime: OFF';
+        if (btn) btn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-800 text-slate-400 border border-slate-700 transition-all flex items-center gap-1.5 shadow-sm';
+      } else {
+        if (icon) icon.innerText = '🔔';
+        if (label) label.innerText = 'Chime: ON';
+        if (btn) btn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-teal-500/20 text-teal-300 border border-teal-500/40 hover:bg-teal-500/30 transition-all flex items-center gap-1.5 shadow-sm';
+        playTacticalChime(65.0);
+      }
+    }
+
+    function playTacticalChime(prob) {
+      if (isAudioMuted) return;
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+
+        if (prob >= 70) {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(1320, now + 0.12);
+
+          gain.gain.setValueAtTime(0.09, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.38);
+        } else {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now);
+          osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.18);
+
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        }
+      } catch (err) {
+        console.warn('Audio notice:', err);
+      }
+    }
+
+    // =========================================================================
+    // FEATURE 4: INTERACTIVE LEAFLET MAP WITH SATELLITE VS TERRAIN LAYERS
+    // =========================================================================
+    let leafletMapInstance = null;
+    let leafletMarkerGroup = null;
+
+    function initLeafletMap() {
+      const mapContainer = document.getElementById('interactiveLeafletMap');
+      if (!mapContainer || leafletMapInstance) return;
+
+      const cartoDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 18,
+        attribution: '&copy; CartoDB &bull; OpenStreetMap'
+      });
+
+      const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18,
+        attribution: '&copy; Esri World Imagery &bull; Earthstar Geographics'
+      });
+
+      const openTopo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17,
+        attribution: '&copy; OpenTopoMap &bull; OpenStreetMap'
+      });
+
+      leafletMapInstance = L.map('interactiveLeafletMap', {
+        center: [23.5, 45.0],
+        zoom: 4,
+        layers: [cartoDark],
+        zoomControl: true
+      });
+
+      const baseLayers = {
+        "Carto Dark (Default)": cartoDark,
+        "Esri Satellite Imagery": esriSatellite,
+        "Topographic Terrain": openTopo
+      };
+
+      L.control.layers(baseLayers, null, { position: 'topright' }).addTo(leafletMapInstance);
+
+      leafletMarkerGroup = L.layerGroup().addTo(leafletMapInstance);
+      renderLeafletMarkers();
+    }
+
+    function renderLeafletMarkers() {
+      if (!leafletMapInstance || !leafletMarkerGroup) return;
+      leafletMarkerGroup.clearLayers();
+
+      PRESETS.forEach((p, idx) => {
+        const isHigh = p.prob >= 70;
+        const isMod = p.prob >= 35 && p.prob < 70;
+        const color = isHigh ? '#EF4444' : (isMod ? '#F59E0B' : '#10B981');
+
+        const circle = L.circleMarker([p.lat, p.lon], {
+          radius: isHigh ? 11 : 9,
+          fillColor: color,
+          color: '#ffffff',
+          weight: 2,
+          opacity: 0.9,
+          fillOpacity: 0.8
+        });
+
+        const popupContent = `
+          <div style="font-family: sans-serif; font-size: 11px; color: #111827; min-width: 170px;">
+            <strong style="color: #166534; font-size: 12px; display: block; margin-bottom: 3px;">${p.short_name || p.name}</strong>
+            <div>Lat: ${p.lat}, Lon: ${p.lon}</div>
+            <div style="margin-top: 2px;">Predicted Risk: <strong style="color: ${color}; font-size: 13px;">${p.prob.toFixed(1)}%</strong></div>
+            <div style="color: #64748b; font-size: 10px;">${p.date} &bull; ${p.split}</div>
+            <button onclick="selectPresetByIdx(${idx})" style="margin-top: 6px; width: 100%; background: #166534; color: #ffffff; border: none; padding: 4px 8px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+              Inspect Hotspot &rarr;
+            </button>
+          </div>
+        `;
+        circle.bindPopup(popupContent);
+        leafletMarkerGroup.addLayer(circle);
+      });
+    }
+
+    function selectPresetByIdx(idx) {
+      const sel = document.getElementById('selectHotspotPreset');
+      if (sel && PRESETS[idx]) {
+        sel.value = PRESETS[idx].id;
+        onHotspotPresetChange();
+      }
+    }
+
+    // =========================================================================
+    // FEATURE 2: DYNAMIC DECISION THRESHOLD SLIDER (	au)
+    // =========================================================================
+    let currentThreshold = 0.50;
+
+    function onThresholdSliderChange(val) {
+      currentThreshold = parseFloat(val);
+      document.getElementById('valThresholdDisplay').innerText = currentThreshold.toFixed(2);
+      updateThresholdModeLabel();
+      updateThresholdDecision();
+    }
+
+    function setThresholdPreset(val) {
+      currentThreshold = val;
+      const slider = document.getElementById('sliderThreshold');
+      if (slider) slider.value = val;
+      document.getElementById('valThresholdDisplay').innerText = val.toFixed(2);
+
+      ['030', '050', '070'].forEach(k => {
+        const btn = document.getElementById(`btnThresh-${k}`);
+        if (!btn) return;
+        const num = parseFloat('0.' + k);
+        if (Math.abs(num - val) < 0.01) {
+          btn.className = 'py-1 px-1.5 rounded-lg border transition-all text-center bg-brandEmerald-500/20 text-brandEmerald-400 border-brandEmerald-500/40 font-bold truncate';
+        } else {
+          btn.className = 'py-1 px-1.5 rounded-lg border transition-all text-center hover:bg-white/5 truncate';
+          btn.style.borderColor = 'var(--glass-border)';
+          btn.style.color = 'var(--text-muted)';
+        }
+      });
+
+      updateThresholdModeLabel();
+      updateThresholdDecision();
+    }
+
+    function updateThresholdModeLabel() {
+      const badge = document.getElementById('thresholdModeLabel');
+      if (!badge) return;
+      if (currentThreshold <= 0.35) {
+        badge.innerText = '🛡️ Preventive Scouting Mode';
+        badge.className = 'text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30';
+      } else if (currentThreshold >= 0.65) {
+        badge.innerText = '✈️ Targeted Spraying Mode';
+        badge.className = 'text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      } else {
+        badge.innerText = '⚖️ Standard Operational Mode';
+        badge.className = 'text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/30';
+      }
+    }
+
+    function updateThresholdDecision() {
+      const probStr = document.getElementById('dialBigProb') ? document.getElementById('dialBigProb').innerText : '65.2%';
+      const probVal = parseFloat(probStr) / 100.0;
+      const isOutbreak = probVal >= currentThreshold;
+
+      const verdictElem = document.getElementById('verdictModelPred');
+      if (verdictElem) {
+        verdictElem.innerText = isOutbreak ? `1 (Outbreak Alert · τ=${currentThreshold.toFixed(2)})` : `0 (Quiescent State · τ=${currentThreshold.toFixed(2)})`;
+        verdictElem.className = isOutbreak ? 'text-red-400 mt-0.5 block font-bold' : 'text-brandEmerald-400 mt-0.5 block font-bold';
+      }
+
+      const reportDecision = document.getElementById('printReportDecision');
+      if (reportDecision) {
+        reportDecision.innerText = isOutbreak ? `1 (Outbreak Alert · τ=${currentThreshold.toFixed(2)})` : `0 (Quiescent · τ=${currentThreshold.toFixed(2)})`;
+      }
+    }
+
+    // =========================================================================
+    // FEATURE 1: COMPARE 2 LOCATIONS SIDE-BY-SIDE
+    // =========================================================================
+    function initCompareSelects() {
+      const selA = document.getElementById('compareSelectA');
+      const selB = document.getElementById('compareSelectB');
+      if (!selA || !selB) return;
+
+      selA.innerHTML = '';
+      selB.innerHTML = '';
+
+      PRESETS.forEach((p, idx) => {
+        const optA = document.createElement('option');
+        optA.value = idx;
+        optA.innerText = p.name;
+        selA.appendChild(optA);
+
+        const optB = document.createElement('option');
+        optB.value = idx;
+        optB.innerText = p.name;
+        selB.appendChild(optB);
+      });
+
+      selA.value = "0";
+      selB.value = "1";
+      onCompareChange();
+    }
+
+    function onCompareChange() {
+      const selA = document.getElementById('compareSelectA');
+      const selB = document.getElementById('compareSelectB');
+      if (!selA || !selB) return;
+
+      const idxA = parseInt(selA.value);
+      const idxB = parseInt(selB.value);
+      const pA = PRESETS[idxA] || PRESETS[0];
+      const pB = PRESETS[idxB] || PRESETS[1];
+
+      document.getElementById('compNameA').innerText = pA.short_name || pA.name;
+      document.getElementById('compCellA').innerText = `Lat ${pA.lat}, Lon ${pA.lon}`;
+      document.getElementById('compProbA').innerText = `${pA.prob.toFixed(1)}%`;
+      document.getElementById('compBandA').innerText = pA.prob >= 70 ? 'Critical Outbreak' : (pA.prob >= 35 ? 'Breeding Watch' : 'Quiescent');
+      document.getElementById('compProbA').className = `font-display font-extrabold text-2xl ${pA.prob >= 70 ? 'text-red-400' : (pA.prob >= 35 ? 'text-amber-400' : 'text-brandEmerald-400')}`;
+      document.getElementById('compRainA').innerText = `${pA.rain7 || 24.5}mm`;
+      document.getElementById('compTempA').innerText = `${pA.t2m || 31.9}°C`;
+      document.getElementById('compHumA').innerText = `${pA.rh2m || 60.9}%`;
+      document.getElementById('compWindA').innerText = `${pA.ws2m || 5.3}m/s`;
+
+      document.getElementById('compNameB').innerText = pB.short_name || pB.name;
+      document.getElementById('compCellB').innerText = `Lat ${pB.lat}, Lon ${pB.lon}`;
+      document.getElementById('compProbB').innerText = `${pB.prob.toFixed(1)}%`;
+      document.getElementById('compBandB').innerText = pB.prob >= 70 ? 'Critical Outbreak' : (pB.prob >= 35 ? 'Breeding Watch' : 'Quiescent');
+      document.getElementById('compProbB').className = `font-display font-extrabold text-2xl ${pB.prob >= 70 ? 'text-red-400' : (pB.prob >= 35 ? 'text-amber-400' : 'text-brandEmerald-400')}`;
+      document.getElementById('compRainB').innerText = `${pB.rain7 || 18.2}mm`;
+      document.getElementById('compTempB').innerText = `${pB.t2m || 29.4}°C`;
+      document.getElementById('compHumB').innerText = `${pB.rh2m || 68.5}%`;
+      document.getElementById('compWindB').innerText = `${pB.ws2m || 3.8}m/s`;
+
+      const deltaP = pA.prob - pB.prob;
+      const deltaR = (pA.rain7 || 24.5) - (pB.rain7 || 18.2);
+      const deltaT = (pA.t2m || 31.9) - (pB.t2m || 29.4);
+
+      document.getElementById('deltaProb').innerText = `${deltaP >= 0 ? '+' : ''}${deltaP.toFixed(1)}% (${deltaP >= 0 ? 'Zone A higher' : 'Zone B higher'})`;
+      document.getElementById('deltaProb').className = `font-bold ${deltaP > 0 ? 'text-red-400' : (deltaP < 0 ? 'text-sky-400' : 'text-slate-400')}`;
+      document.getElementById('deltaRain').innerText = `${deltaR >= 0 ? '+' : ''}${deltaR.toFixed(1)} mm`;
+      document.getElementById('deltaTemp').innerText = `${deltaT >= 0 ? '+' : ''}${deltaT.toFixed(1)} °C`;
+
+      if (Math.abs(deltaR) > 5.0) {
+        document.getElementById('deltaFactor').innerText = deltaR > 0 ? 'Zone A Rainfall Soaking' : 'Zone B Rainfall Soaking';
+      } else if (Math.abs(deltaT) > 3.0) {
+        document.getElementById('deltaFactor').innerText = deltaT > 0 ? 'Zone A Thermal Acceleration' : 'Zone B Cooler Incubation';
+      } else {
+        document.getElementById('deltaFactor').innerText = 'Historical Gregarious Clustering';
+      }
+    }
+
+    // =========================================================================
+    // FEATURE 3: 1-CLICK EXPORT TIMELINE CHART AS PNG
+    // =========================================================================
+    function exportTimelineChartPNG() {
+      if (!timelineChartInstance) return;
+      const url = timelineChartInstance.toBase64Image();
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `pestalertnet_timeline_chart_${window.currentCellKey || 'active_cell'}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // =========================================================================
+    // FEATURE 5: 21-DAY TIME-LAPSE SCRUBBER & ANIMATION PLAYER
+    // =========================================================================
+    let timeLapseInterval = null;
+    let isTimeLapsePlaying = false;
+    let currentTimeLapseDay = 21;
+
+    function toggleTimeLapsePlayback() {
+      if (isTimeLapsePlaying) {
+        pauseTimeLapse();
+      } else {
+        playTimeLapse();
+      }
+    }
+
+    function playTimeLapse() {
+      if (currentTimeLapseDay >= 21) currentTimeLapseDay = 1;
+      isTimeLapsePlaying = true;
+      document.getElementById('playIcon').innerText = '⏸';
+      document.getElementById('playLabel').innerText = 'Pause';
+
+      if (timeLapseInterval) clearInterval(timeLapseInterval);
+      timeLapseInterval = setInterval(() => {
+        currentTimeLapseDay++;
+        if (currentTimeLapseDay > 21) {
+          pauseTimeLapse();
+          currentTimeLapseDay = 21;
+        }
+        applyTimeLapseDay(currentTimeLapseDay);
+      }, 500);
+    }
+
+    function pauseTimeLapse() {
+      isTimeLapsePlaying = false;
+      if (timeLapseInterval) clearInterval(timeLapseInterval);
+      const icon = document.getElementById('playIcon');
+      const label = document.getElementById('playLabel');
+      if (icon) icon.innerText = '▶';
+      if (label) label.innerText = 'Play Time-Lapse';
+    }
+
+    function resetTimeLapse() {
+      pauseTimeLapse();
+      currentTimeLapseDay = 21;
+      applyTimeLapseDay(21);
+    }
+
+    function onTimeLapseScrub(val) {
+      pauseTimeLapse();
+      currentTimeLapseDay = parseInt(val);
+      applyTimeLapseDay(currentTimeLapseDay);
+    }
+
+    function applyTimeLapseDay(day) {
+      const scrubber = document.getElementById('timeLapseScrubber');
+      if (scrubber) scrubber.value = day;
+
+      const badge = document.getElementById('timeLapseDayBadge');
+      if (badge) badge.innerText = `Day ${day} ${day === 21 ? '(Final Day)' : `(Input T-${21 - day})`}`;
+
+      const narrative = document.getElementById('timeLapseNarrative');
+      if (narrative) {
+        if (day <= 5) {
+          narrative.innerText = `Day ${day}: Baseline quiescent condition. Ambient desert soil moisture remains below germination thresholds.`;
+        } else if (day <= 12) {
+          narrative.innerText = `Day ${day}: Seasonal rain pulse detected. Surface dampening begins in sandy hollows; initial egg-pod hydration underway.`;
+        } else if (day <= 18) {
+          narrative.innerText = `Day ${day}: Ephemeral vegetation flushes emerge. Early instar nymphs (hoppers) concentrate on shrinking green vegetation patches.`;
+        } else {
+          narrative.innerText = `Day ${day}: Compounding 21-day atmospheric sequence complete. BiLSTM flags elevated gregarization probability for the upcoming 7-day horizon.`;
+        }
+      }
+
+      if (timelineChartInstance && timelineChartInstance.data.datasets.length > 0) {
+        const dataset = timelineChartInstance.data.datasets[0];
+        dataset.backgroundColor = dataset.data.map((val, idx) => {
+          if (idx + 1 === day) return '#F59E0B';
+          if (idx + 1 < day) return val >= 0 ? 'rgba(239, 68, 68, 0.85)' : 'rgba(16, 185, 129, 0.85)';
+          return 'rgba(148, 163, 184, 0.2)';
+        });
+        timelineChartInstance.update();
+      }
     }
   </script>
 
