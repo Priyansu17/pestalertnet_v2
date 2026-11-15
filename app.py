@@ -90,6 +90,91 @@ def feature_label(fid):
     return FEATURE_DISPLAY.get(fid, (str(fid), "Needs verification."))[0]
 
 
+# ============================================================
+# Glossary: plain-English definitions for technical terms
+# ============================================================
+GLOSSARY = {
+    "BiLSTM": (
+        "Bidirectional Long Short-Term Memory",
+        "A recurrent neural network that reads the 21-day sequence forwards AND backwards "
+        "simultaneously, so it understands both recent trends and older context. Think of it "
+        "like re-reading a weather diary from start-to-end, then again end-to-start before making a prediction."
+    ),
+    "Integrated Gradients": (
+        "Integrated Gradients (Captum XAI)",
+        "An explainability method that reveals WHY the model gave a certain risk score. It "
+        "measures how much each individual weather feature 'pushed' the prediction up or down "
+        "compared to a neutral baseline with no weather signal."
+    ),
+    "Completeness Delta": (
+        "Completeness / Convergence Delta",
+        "A quality-check number. After computing explanations, all feature contributions "
+        "should sum exactly to (prediction − baseline). If the gap |delta| < 0.05 the "
+        "explanations are mathematically verified as trustworthy."
+    ),
+    "T2M": (
+        "T2M — 2-Metre Air Temperature",
+        "Temperature measured 2 metres above the ground surface (degrees Celsius). "
+        "Desert locusts develop fastest between 28–38 °C. Very cold nights below 15 °C "
+        "suppress egg hatching."
+    ),
+    "PRECTOTCORR": (
+        "PRECTOTCORR — Corrected Total Precipitation",
+        "Daily rainfall in mm/day from NASA POWER satellite reanalysis. "
+        "Rainfall above ~15 mm moistens sand to trigger locust egg-pod incubation "
+        "and fast hatching of nymph (hopper) bands."
+    ),
+    "RH2M": (
+        "RH2M — Relative Humidity",
+        "Percentage of water vapour in the air at 2 m height. High humidity (>60 %) "
+        "supports vegetation greening and locust survival. Very dry air (<15 %) "
+        "desiccates egg pods and suppresses swarming."
+    ),
+    "WS2M": (
+        "WS2M — 2-Metre Wind Speed",
+        "Wind speed in m/s measured 2 metres above ground. Winds above ~4 m/s "
+        "help adult swarms take off and travel up to 150 km per day."
+    ),
+    "ROC-AUC": (
+        "ROC-AUC Score",
+        "Area Under the Receiver Operating Curve. Ranges 0–1; 1.0 = perfect. "
+        "This model scores 0.942, meaning it correctly ranks an outbreak day "
+        "above a calm day 94.2% of the time."
+    ),
+    "F1-Score": (
+        "F1-Score",
+        "The harmonic mean of Precision and Recall. It balances the cost of "
+        "missing a real outbreak (false negative) against false alarms (false positive). "
+        "This model scores 0.778 on the held-out test set."
+    ),
+    "28-Day Embargo": (
+        "28-Day Temporal Embargo",
+        "A strict 28-day gap between training data and test data ensures the model "
+        "never 'peeks' at future observations during training. Without this, accuracy "
+        "scores would be artificially inflated."
+    ),
+}
+
+
+def tooltip(term_key):
+    """Return a styled ⓘ tooltip span for a glossary term."""
+    if term_key not in GLOSSARY:
+        return ""
+    name, desc = GLOSSARY[term_key]
+    # Escape single quotes for the data-tip attribute
+    safe_desc = desc.replace("'", "&#39;").replace('"', "&quot;")
+    return (
+        f'<span class="pn-tip" data-tip="{safe_desc}" title="{name}">?</span>'
+    )
+
+
+def ttip(term_key, label=None):
+    """Inline HTML: label + tooltip icon in a flex wrapper."""
+    icon = tooltip(term_key)
+    display = label if label else (GLOSSARY[term_key][0] if term_key in GLOSSARY else term_key)
+    return f'<span class="pn-tooltip-wrap">{display} {icon}</span>'
+
+
 st.set_page_config(page_title="PestAlertNet | Outbreak Risk & Explainability", page_icon="🌾", layout="wide")
 
 # =========================================================================
@@ -311,6 +396,105 @@ st.markdown(
     /* Respect reduced-motion preferences */
     @media (prefers-reduced-motion: reduce) {
         * { transition: none !important; animation: none !important; }
+    }
+
+    /* ===== Beginner-Friendly Tooltip System ===== */
+    .pn-tooltip-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        position: relative;
+    }
+    .pn-tip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: rgba(46, 125, 50, 0.15);
+        border: 1px solid rgba(46, 125, 50, 0.4);
+        color: var(--pn-green-dark);
+        font-size: 10px;
+        font-weight: 700;
+        cursor: help;
+        vertical-align: middle;
+        line-height: 1;
+        flex-shrink: 0;
+        position: relative;
+    }
+    .pn-tip::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1b5e20;
+        color: #f1f8e9;
+        font-size: 11.5px;
+        font-weight: 400;
+        line-height: 1.4;
+        padding: 7px 11px;
+        border-radius: 9px;
+        white-space: pre-wrap;
+        min-width: 220px;
+        max-width: 320px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        z-index: 9999;
+    }
+    .pn-tip::before {
+        content: "";
+        position: absolute;
+        bottom: calc(100% + 1px);
+        left: 50%;
+        transform: translateX(-50%);
+        border: 6px solid transparent;
+        border-top-color: #1b5e20;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        z-index: 9999;
+    }
+    .pn-tip:hover::after,
+    .pn-tip:hover::before { opacity: 1; }
+
+    /* ===== Download Report / Print Card ===== */
+    .pn-report-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 1rem;
+    }
+    .pn-dl-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.82rem;
+        cursor: pointer;
+        border: 1px solid rgba(46, 125, 50, 0.45);
+        background: rgba(46, 125, 50, 0.08);
+        color: #1b5e20;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+    .pn-dl-btn:hover {
+        background: rgba(46, 125, 50, 0.16);
+        box-shadow: 0 4px 12px rgba(27, 94, 32, 0.15);
+        transform: translateY(-1px);
+    }
+
+    @media print {
+        /* hide everything except the report content */
+        .stApp > header, section[data-testid="stSidebar"],
+        div[data-testid="stDecoration"], .pn-report-bar,
+        div[data-testid="stTabs"] { display: none !important; }
+        .pn-print-section { display: block !important; }
     }
 </style>
 """,
@@ -984,6 +1168,20 @@ with tab_risk:
     c.metric("Sequence date", date)
     d.metric("Input window", "21 days")
 
+    # Tooltips row under the metrics
+    st.markdown(
+        f"""<div style="display:flex;gap:18px;flex-wrap:wrap;font-size:0.78rem;color:#46584a;margin:0.1rem 0 0.6rem 0;padding-left:0.3rem;">
+        {ttip("BiLSTM", "What is BiLSTM?")}
+        &nbsp;·&nbsp;
+        {ttip("ROC-AUC", "What is ROC-AUC?")}
+        &nbsp;·&nbsp;
+        {ttip("28-Day Embargo", "What is the 28-Day Embargo?")}
+        &nbsp;·&nbsp;
+        {ttip("F1-Score", "What is F1-Score?")}
+        </div>""",
+        unsafe_allow_html=True,
+    )
+
     st.progress(float(np.clip(prob, 0.0, 1.0)))
 
     # Ground truth vs sample details
@@ -1034,6 +1232,83 @@ with tab_risk:
 """,
             unsafe_allow_html=True,
         )
+
+    # ── Download Report Bar ──────────────────────────────────────────────
+    # Build CSV of key prediction data for download
+    report_csv = (
+        "Field,Value\n"
+        f"Grid Cell,{cell}\n"
+        f"Sequence Date,{date}\n"
+        f"Outbreak Probability,{prob:.4f}\n"
+        f"Model Band,{band}\n"
+        f"Observed Label,{label}\n"
+        f"Model Prediction,{1 if prob >= 0.50 else 0}\n"
+        f"Dataset Row Index,{idx}\n"
+        f"Input Window,21 days\n"
+        f"Prediction Horizon,7 days\n"
+        f"Checkpoint,models/best_model.pt\n"
+        f"Note,Historical research demo — not a live forecast\n"
+    )
+
+    report_html = f"""
+<html><head><style>
+  body{{font-family:sans-serif;padding:32px;color:#16261a;background:#f9f9f5;}}
+  h1{{color:#1b5e20;font-size:1.5rem;border-bottom:3px solid #2e7d32;padding-bottom:8px;}}
+  .badge{{display:inline-block;padding:4px 12px;border-radius:20px;font-weight:700;font-size:0.85rem;
+    background:{"#fdecea" if is_high else "#fff8e1" if is_mod else "#e8f5e9"};
+    color:{"#c62828" if is_high else "#e65100" if is_mod else "#2e7d32"};
+    border:1px solid {"#ef9a9a" if is_high else "#ffcc80" if is_mod else "#a5d6a7"};}}
+  table{{width:100%;border-collapse:collapse;margin-top:16px;}}
+  th{{background:#2e7d32;color:#fff;padding:8px 12px;text-align:left;font-size:0.82rem;}}
+  td{{padding:8px 12px;border-bottom:1px solid #dce8d4;font-size:0.88rem;}}
+  tr:nth-child(even){{background:#f4f8f0;}}
+  .footer{{margin-top:24px;font-size:0.76rem;color:#768a7d;}}
+</style></head><body>
+<h1>🌾 PestAlertNet — Field Situation Report</h1>
+<p><strong>Grid Cell:</strong> {cell} &nbsp;|&nbsp; <strong>Sequence Date:</strong> {date}</p>
+<p><span class="badge">{band}</span></p>
+<table>
+  <tr><th>Parameter</th><th>Value</th></tr>
+  <tr><td>Outbreak Probability</td><td><strong>{prob:.1%}</strong></td></tr>
+  <tr><td>Observed Historical Label</td><td>{"✅ Positive Outbreak (Label 1)" if label == 1 else "⬜ Negative / Calm (Label 0)"}</td></tr>
+  <tr><td>Model Decision (threshold = 0.50)</td><td>{"🚨 Alert: Outbreak Detected" if prob >= 0.50 else "✅ Normal: Quiescent State"}</td></tr>
+  <tr><td>Dataset Row Index</td><td>{idx}</td></tr>
+  <tr><td>Input Window</td><td>21 days</td></tr>
+  <tr><td>Prediction Horizon</td><td>7 days ahead</td></tr>
+  <tr><td>Checkpoint</td><td>models/best_model.pt</td></tr>
+  <tr><td>Tactical Advisory</td><td>{adv_text}</td></tr>
+</table>
+<div class="footer">⚠ Historical research demo only. Scored from retained field observations. Not a live forecast system.</div>
+</body></html>
+"""
+
+    import base64 as _b64
+    csv_b64 = _b64.b64encode(report_csv.encode()).decode()
+    html_b64 = _b64.b64encode(report_html.encode()).decode()
+    fname_stem = f"pestalertnet_report_{cell}_{date}"
+
+    st.markdown(
+        f"""
+<div class="pn-report-bar" style="margin-top:0.9rem;">
+  <span style="font-size:0.8rem;font-weight:600;color:#46584a;">📥 Download Report:</span>
+  <a class="pn-dl-btn"
+     href="data:text/csv;base64,{csv_b64}"
+     download="{fname_stem}.csv">
+    📊 Download CSV
+  </a>
+  <a class="pn-dl-btn"
+     href="data:text/html;base64,{html_b64}"
+     download="{fname_stem}.html"
+     title="Open this file in your browser, then use Ctrl+P → Save as PDF">
+    📄 Save as PDF-ready HTML
+  </a>
+</div>
+<p style="font-size:0.72rem;color:#768a7d;margin-top:0.25rem;">
+  💡 To get a PDF: download the HTML file, open it in Chrome/Edge, press <kbd>Ctrl+P</kbd> → "Save as PDF".
+</p>
+""",
+        unsafe_allow_html=True,
+    )
 
     # Additional Feature: Interactive Environmental Sensitivity Lab (What-if Simulator)
     with st.expander("🧪 Live Environmental Sensitivity Lab (What-If Simulator)"):
@@ -1195,11 +1470,29 @@ Integrated Gradients satisfies **Completeness** (attributions sum to $F(x) - F(x
             else:
                 st.caption("No negative contributions for this sample.")
 
-            st.markdown("#### All Features (Ranked by Absolute Attribution)")
-            st.dataframe(
-                table.sort_values("Absolute attribution", ascending=False).reset_index(drop=True),
-                use_container_width=True,
-                hide_index=True,
+            st.markdown(
+                f"""#### All Features {ttip("Integrated Gradients", "What is this table?")} — Ranked by Absolute Attribution""",
+                unsafe_allow_html=True,
+            )
+            sorted_table = table.sort_values("Absolute attribution", ascending=False).reset_index(drop=True)
+            st.dataframe(sorted_table, use_container_width=True, hide_index=True)
+
+            # ── Download attribution CSV ─────────────────────────────────
+            import base64 as _b64
+            attr_csv_b64 = _b64.b64encode(
+                sorted_table.to_csv(index=False).encode()
+            ).decode()
+            attr_fname = f"ig_attributions_{cell}_{date}.csv"
+            st.markdown(
+                f"""<div class="pn-report-bar">
+                <span style="font-size:0.8rem;font-weight:600;color:#46584a;">📥 Export Attributions:</span>
+                <a class="pn-dl-btn"
+                   href="data:text/csv;base64,{attr_csv_b64}"
+                   download="{attr_fname}">
+                   📊 Download Attribution CSV
+                </a>
+                </div>""",
+                unsafe_allow_html=True,
             )
 
             with st.expander("📅 Contribution Across the 21 Input Days (Oldest to Newest)"):
