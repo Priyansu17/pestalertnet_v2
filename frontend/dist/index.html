@@ -305,6 +305,68 @@
       text-align: left;
     }
 
+    /* ========================================================================= */
+    /* MOBILE PHONE OPTIMIZATION ENGINE (max-width: 640px)                       */
+    /* ========================================================================= */
+    @media (max-width: 640px) {
+      /* Top header title and actions on small phone */
+      header .max-w-7xl {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      /* Smooth horizontal scrolling for tabs bar without text wrap */
+      div[class*="overflow-x-auto"] {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      div[class*="overflow-x-auto"]::-webkit-scrollbar {
+        display: none;
+      }
+      div[class*="overflow-x-auto"] button {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        padding: 0.45rem 0.75rem !important;
+        font-size: 0.75rem !important;
+      }
+      /* Interactive Leaflet Map: responsive touch view */
+      #interactiveLeafletMap {
+        height: 240px !important;
+        touch-action: pan-x pan-y !important;
+      }
+      /* Compare zone dropdowns: stack vertically on mobile screens */
+      #compareSelectA, #compareSelectB {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-top: 0.35rem;
+      }
+      /* Operational action buttons on phone: wrap neatly */
+      .op-action-wrap {
+        display: flex;
+        flex-wrap: wrap !important;
+        gap: 0.4rem !important;
+      }
+      .op-action-wrap button, .op-action-wrap a {
+        flex: 1 1 calc(50% - 0.3rem) !important;
+        min-width: 130px;
+        font-size: 0.72rem !important;
+        padding: 0.5rem 0.6rem !important;
+        justify-content: center;
+      }
+      /* Tooltip popup on touch screens: prevent bleeding past viewport */
+      .info-tip:hover::after {
+        left: auto !important;
+        right: -10px !important;
+        transform: none !important;
+        max-width: 80vw !important;
+        width: 220px !important;
+      }
+      /* Mascot scaled for mobile */
+      .animate-mascot-bob svg {
+        max-width: 110px !important;
+        height: auto !important;
+      }
+    }
+
     @media print {
       @page {
         size: A4 portrait;

@@ -1,0 +1,10 @@
+# Lightweight CPU-optimized requirements for Render / Cloud deployment
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+pandas>=2.0
+captum>=0.6
+requests>=2.31
+pyyaml>=6.0
+streamlit>=1.25

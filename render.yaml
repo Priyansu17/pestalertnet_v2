@@ -1,0 +1,24 @@
+services:
+  # Primary Web Console (High-Performance HTML5 / Leaflet / BiLSTM & Captum XAI)
+  - type: web
+    name: pestalertnet-web-console
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements-render.txt"
+    startCommand: "python serve_frontend.py"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+
+  # Optional Streamlit Research Lab (can be deployed as secondary service)
+  - type: web
+    name: pestalertnet-streamlit-lab
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements-render.txt"
+    startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8

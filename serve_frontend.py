@@ -414,5 +414,5 @@ def start_server(preferred_port=8080):
             print(f"Port {port} unavailable ({e}), trying next candidate...")
 
 if __name__ == "__main__":
-    preferred = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
+    preferred = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.environ.get("PORT", 8080))
     start_server(preferred)
