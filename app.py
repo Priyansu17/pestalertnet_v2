@@ -1184,6 +1184,42 @@ with tab_risk:
 
     st.progress(float(np.clip(prob, 0.0, 1.0)))
 
+    # ── Dynamic Decision Threshold Slider (τ) ───────────────────────────────
+    st.markdown("---")
+    st.markdown("#### 🎚️ Decision Threshold (τ) — Adjust Sensitivity vs. Precision")
+    tau_col1, tau_col2 = st.columns([3, 1])
+    with tau_col1:
+        tau = st.slider(
+            "τ — Outbreak decision threshold",
+            min_value=0.10, max_value=0.90, value=0.50, step=0.05,
+            help="Lower τ = more sensitive (Scouting mode, catches more outbreaks). Higher τ = more precise (Spraying mode, fewer false alarms).",
+            key="tau_slider",
+        )
+    with tau_col2:
+        if tau <= 0.35:
+            tau_mode = "🔍 Preventive Scouting"
+            tau_color = "#1565c0"
+            tau_bg = "#e3f2fd"
+        elif tau >= 0.65:
+            tau_mode = "✈️ Targeted Spraying"
+            tau_color = "#b71c1c"
+            tau_bg = "#fdecea"
+        else:
+            tau_mode = "⚖️ Standard Mode"
+            tau_color = "#2e7d32"
+            tau_bg = "#e8f5e9"
+        st.markdown(
+            f"""<div style="background:{tau_bg};border:1px solid {tau_color}44;border-radius:10px;
+            padding:0.6rem 0.8rem;margin-top:1.6rem;text-align:center;font-weight:700;
+            color:{tau_color};font-size:0.85rem;">{tau_mode}<br>
+            <span style="font-size:0.75rem;font-weight:400;opacity:0.8;">τ = {tau:.2f}</span></div>""",
+            unsafe_allow_html=True,
+        )
+    st.markdown("---")
+
+    tau_decision = 1 if prob >= tau else 0
+    tau_verdict  = "🚨 Alert: Outbreak Detected" if tau_decision == 1 else "✅ Normal: Quiescent State"
+
     # Ground truth vs sample details
     col_gt, col_details = st.columns(2)
     with col_gt:
@@ -1192,8 +1228,8 @@ with tab_risk:
 <div class="pn-card {pulse_class}">
     <h4 style="margin:0 0 0.5rem 0; color: #1b5e20;">Historical Target Verdict</h4>
     <p style="margin:0.2rem 0; font-size: 1.1rem;">Observed Target Label: <strong>Label {label} ({'Positive Outbreak' if label == 1 else 'Negative / Calm'})</strong></p>
-    <p style="margin:0.2rem 0; font-size: 1.1rem;">Model Prediction: <strong>{1 if prob >= 0.50 else 0} ({'Alert: Outbreak Detected' if prob >= 0.50 else 'Normal: Quiescent State'})</strong></p>
-    <small style="color: #46584a;">Threshold: 0.50 · Validated on historical ground truth.</small>
+    <p style="margin:0.2rem 0; font-size: 1.1rem;">Model Prediction (τ={tau:.2f}): <strong>{tau_decision} ({tau_verdict})</strong></p>
+    <small style="color: #46584a;">Current mode: {tau_mode} · Drag the τ slider above to change sensitivity.</small>
 </div>
 """,
             unsafe_allow_html=True,
@@ -1378,6 +1414,125 @@ with tab_risk:
                 col.metric(title, int(metrics[key]))
     else:
         st.caption("Click “Evaluate frozen test set” to calculate metrics.")
+
+    # ── Compare 2 Locations Side-by-Side ───────────────────────────────────
+    st.markdown("---")
+    st.markdown("### ⚖️ Compare 2 Locations Side-by-Side")
+    st.caption("Select a second preset hotspot to compare environmental conditions and risk scores against the currently loaded location.")
+
+    preset_names = list(PRESETS_LOOKUP.keys())
+    # Default comparison to a different preset than the first
+    default_compare_idx = 1
+    compare_preset_name = st.selectbox(
+        "Compare with preset hotspot",
+        preset_names,
+        index=default_compare_idx,
+        key="compare_preset_sel",
+    )
+    cmp_info = PRESETS_LOOKUP[compare_preset_name]
+    cmp_cell = cmp_info["cell"]
+    cmp_cell_idx = np.flatnonzero(cells == cmp_cell)
+
+    cmp_prob = None
+    cmp_error = None
+    if len(cmp_cell_idx) > 0:
+        # Find the closest date in the compare preset
+        cmp_date = cmp_info["date"]
+        cmp_date_idx = cmp_cell_idx[dates[cmp_cell_idx] == cmp_date]
+        if len(cmp_date_idx) == 0:
+            cmp_date_idx = cmp_cell_idx  # fallback: any date
+        cmp_row_idx = int(cmp_date_idx[0])
+        cmp_x = Xall[cmp_row_idx : cmp_row_idx + 1]
+        try:
+            cmp_prob = float(predict_outbreak(cmp_x, model_path=CKPT, device=device)[0])
+        except Exception as e:
+            cmp_error = str(e)
+    else:
+        cmp_error = f"No saved sequences found for cell {cmp_cell}"
+
+    # Side-by-side columns
+    cmp_left, cmp_mid, cmp_right = st.columns([5, 1, 5])
+
+    def risk_color(p):
+        if p is None: return "#888"
+        return "#c62828" if p >= 0.70 else ("#e65100" if p >= 0.35 else "#2e7d32")
+
+    def risk_bg(p):
+        if p is None: return "#f5f5f5"
+        return "#fdecea" if p >= 0.70 else ("#fff8e1" if p >= 0.35 else "#e8f5e9")
+
+    def risk_band(p):
+        if p is None: return "N/A"
+        return "Critical Outbreak Alert" if p >= 0.70 else ("Elevated Breeding Watch" if p >= 0.35 else "Safe Quiescent Baseline")
+
+    # Current location card
+    cur_lat, cur_lon = parse_cell_id(cell)
+    cmp_lat, cmp_lon = parse_cell_id(cmp_cell)
+
+    with cmp_left:
+        st.markdown(
+            f"""<div style="background:{risk_bg(prob)};border:2px solid {risk_color(prob)}44;
+            border-radius:14px;padding:1.1rem 1.3rem;">
+            <div style="font-weight:700;color:{risk_color(prob)};font-size:1rem;margin-bottom:0.4rem;">
+                📍 Current Location</div>
+            <div style="font-size:1.5rem;font-weight:800;color:{risk_color(prob)};">{prob:.1%}</div>
+            <div style="font-size:0.82rem;color:#555;margin-top:0.2rem;">{risk_band(prob)}</div>
+            <hr style="margin:0.6rem 0;border-color:{risk_color(prob)}22;">
+            <div style="font-size:0.8rem;color:#333;">
+                <b>Cell:</b> {cell}<br>
+                <b>Date:</b> {date}<br>
+                <b>Lat/Lon:</b> {cur_lat}, {cur_lon}
+            </div>
+            <div style="margin-top:0.5rem;font-size:0.78rem;color:#555;font-style:italic;">{cmp_info["desc"][:100] if cell == cmp_cell else ""}</div>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+
+    with cmp_mid:
+        st.markdown(
+            """<div style="display:flex;align-items:center;justify-content:center;height:100%;
+            font-size:1.5rem;color:#2e7d32;padding-top:2.5rem;">⚖️</div>""",
+            unsafe_allow_html=True,
+        )
+
+    with cmp_right:
+        if cmp_error:
+            st.error(f"Could not load comparison: {cmp_error}")
+        elif cmp_prob is not None:
+            st.markdown(
+                f"""<div style="background:{risk_bg(cmp_prob)};border:2px solid {risk_color(cmp_prob)}44;
+                border-radius:14px;padding:1.1rem 1.3rem;">
+                <div style="font-weight:700;color:{risk_color(cmp_prob)};font-size:1rem;margin-bottom:0.4rem;">
+                    📍 {compare_preset_name.split("(")[0].strip()}</div>
+                <div style="font-size:1.5rem;font-weight:800;color:{risk_color(cmp_prob)};">{cmp_prob:.1%}</div>
+                <div style="font-size:0.82rem;color:#555;margin-top:0.2rem;">{risk_band(cmp_prob)}</div>
+                <hr style="margin:0.6rem 0;border-color:{risk_color(cmp_prob)}22;">
+                <div style="font-size:0.8rem;color:#333;">
+                    <b>Cell:</b> {cmp_cell}<br>
+                    <b>Date:</b> {cmp_info["date"]}<br>
+                    <b>Lat/Lon:</b> {cmp_lat}, {cmp_lon}
+                </div>
+                <div style="margin-top:0.5rem;font-size:0.78rem;color:#555;font-style:italic;">{cmp_info["desc"][:100]}</div>
+                </div>""",
+                unsafe_allow_html=True,
+            )
+
+    # Delta summary strip
+    if cmp_prob is not None:
+        delta = prob - cmp_prob
+        delta_sign = "+" if delta > 0 else ""
+        delta_color = "#c62828" if delta > 0.05 else ("#2e7d32" if delta < -0.05 else "#555")
+        st.markdown(
+            f"""<div style="background:#f5f5f5;border:1px solid #e0e0e0;border-radius:10px;
+            padding:0.65rem 1rem;margin-top:0.75rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+            <span style="font-size:0.82rem;color:#555;font-weight:600;">📊 Risk Delta:</span>
+            <span style="font-size:1rem;font-weight:800;color:{delta_color};">{delta_sign}{delta:.1%}</span>
+            <span style="font-size:0.78rem;color:#777;">
+                {"Current location is higher risk" if delta > 0.05 else "Comparison is higher risk" if delta < -0.05 else "Similar risk levels"}
+            </span>
+            </div>""",
+            unsafe_allow_html=True,
+        )
 
 # ---- Tab 4: Feature Explanation (XAI) ----
 with tab_feat:
