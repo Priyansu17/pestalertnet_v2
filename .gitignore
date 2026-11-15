@@ -1,0 +1,65 @@
+# ==============================================================================
+# PestAlertNet .gitignore
+# Production-grade file exclusion manifest
+# ==============================================================================
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.so
+
+# Testing & Code Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Editor & IDE configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.directory
+
+# OS metadata
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# Backup, scratch, and temporary files
+*.bak
+*.bak.*
+*_bak
+*.tmp
+*.temp
+cline_*.txt
+*.log
+
+# Raw Datasets (NASA POWER Climatology & FAO RAMSES Global exceed GitHub 100MB limits)
+data/raw/*
+!data/raw/.gitkeep
+
+# Output Scratch & Diagnostic Dumps (Preserve figures, summaries, reports)
+outputs/*.txt
+!outputs/phase2_report.txt
+outputs/*.sh
+outputs/*.py
+outputs/probe_*.csv
+outputs/perf_page.json

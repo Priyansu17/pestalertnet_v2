@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-10-14T01:43:36.493966+00:00",
+  "test_samples": 6684,
+  "positive_samples": 1320,
+  "negative_samples": 5364,
+  "input_shape_per_sample": [
+    21,
+    25
+  ],
+  "device": "cuda",
+  "batch_size": 16,
+  "integrated_gradients_steps": 50,
+  "baseline": "all-zero tensor in frozen feature space",
+  "aggregation": "sum absolute attribution over 21 time steps; average over samples",
+  "seed": 42,
+  "checkpoint_path": "D:\\Project\\pestalertnet_v2\\models\\best_model.pt",
+  "checkpoint_sha256": "69a448d95095fd3081f26287c752c5322ea7d66a5e2788e74bd06a96c1faca3e",
+  "checkpoint_epoch": 2,
+  "threshold": 0.5,
+  "feature_names": [
+    "T2M",
+    "RH2M",
+    "PRECTOTCORR",
+    "WS2M",
+    "w_mask_T2M",
+    "w_mask_RH2M",
+    "w_mask_PRECTOTCORR",
+    "w_mask_WS2M",
+    "pest_surveyed",
+    "pest_event",
+    "pest_present",
+    "T2M_roll7_mean",
+    "T2M_roll21_mean",
+    "RH2M_roll7_mean",
+    "RH2M_roll21_mean",
+    "WS2M_roll7_mean",
+    "rain_sum7",
+    "rain_sum21",
+    "rain_days21",
+    "t2m_anomaly",
+    "event_count_7d",
+    "event_count_21d",
+    "survey_count_21d",
+    "days_since_survey",
+    "days_since_event"
+  ],
+  "class_counts": {
+    "negative": 5364,
+    "positive": 1320
+  },
+  "interpretation_limit": "Magnitude only; does not indicate direction or causation. This is a global test-set attribution summary, not a causal analysis."
+}

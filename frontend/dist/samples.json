@@ -1,0 +1,1318 @@
+[
+  {
+    "id": "rajasthan_outbreak",
+    "idx": 8131,
+    "region": "Thar Desert (Rajasthan, India)",
+    "coords": "27.5\u00b0N, 71.25\u00b0E",
+    "cell": "27.5_71.25",
+    "date": "2023-08-10",
+    "desc": "Monsoon gregarization wave in Jaisalmer dunes following heavy monsoon depression.",
+    "prob": 84.6,
+    "y_true": 1,
+    "split": 0,
+    "metrics": {
+      "t2m": 31.9,
+      "rh2m": 60.9,
+      "ws2m": 5.3,
+      "rain7": 0.0,
+      "pest_event": 1,
+      "pest_present": 1
+    },
+    "upward": [
+      {
+        "name": "Gregarious Pest Event (7 Days)",
+        "id": "pest_event",
+        "val": 0.324,
+        "detail": "Confirmed gregarious band / swarm sighting in prior week"
+      },
+      {
+        "name": "Consecutive Pest Activity Days",
+        "id": "event_count_7d",
+        "val": 0.2815,
+        "detail": "High persistence of nymphal hopper density in sector"
+      },
+      {
+        "name": "Cumulative 7-Day Rainfall",
+        "id": "rain_sum7",
+        "val": 0.1742,
+        "detail": "0.0 mm moistens soil profile for egg pod incubation"
+      },
+      {
+        "name": "Relative Humidity at 2m",
+        "id": "RH2M",
+        "val": 0.119,
+        "detail": "60.9% provides optimal hopper moisture envelope"
+      }
+    ],
+    "downward": [
+      {
+        "name": "Mean 7-Day Wind Speed",
+        "id": "WS2M_roll7_mean",
+        "val": -0.098,
+        "detail": "5.3 m/s moderate airflow allows directional flight"
+      },
+      {
+        "name": "Days Since Preceding Event",
+        "id": "days_since_event",
+        "val": -0.054,
+        "detail": "Recency of activity dampens time decay penalty"
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "t2m": 32.9,
+        "rain": 5.0,
+        "attr": 0.0953
+      },
+      {
+        "day": 2,
+        "t2m": 31.3,
+        "rain": 6.9,
+        "attr": 0.1192
+      },
+      {
+        "day": 3,
+        "t2m": 32.8,
+        "rain": 7.9,
+        "attr": 0.1468
+      },
+      {
+        "day": 4,
+        "t2m": 30.9,
+        "rain": 13.7,
+        "attr": 0.2374
+      },
+      {
+        "day": 5,
+        "t2m": 29.9,
+        "rain": 10.5,
+        "attr": 0.174
+      },
+      {
+        "day": 6,
+        "t2m": 31.2,
+        "rain": 1.7,
+        "attr": 0.0264
+      },
+      {
+        "day": 7,
+        "t2m": 30.0,
+        "rain": 24.1,
+        "attr": 0.4147
+      },
+      {
+        "day": 8,
+        "t2m": 30.7,
+        "rain": 2.0,
+        "attr": 0.0294
+      },
+      {
+        "day": 9,
+        "t2m": 31.2,
+        "rain": 7.8,
+        "attr": 0.1335
+      },
+      {
+        "day": 10,
+        "t2m": 31.5,
+        "rain": 3.2,
+        "attr": 0.0556
+      },
+      {
+        "day": 11,
+        "t2m": 32.8,
+        "rain": 0.1,
+        "attr": 0.0077
+      },
+      {
+        "day": 12,
+        "t2m": 33.1,
+        "rain": 0.0,
+        "attr": 0.0086
+      },
+      {
+        "day": 13,
+        "t2m": 32.9,
+        "rain": 0.0,
+        "attr": 0.0073
+      },
+      {
+        "day": 14,
+        "t2m": 32.6,
+        "rain": 0.0,
+        "attr": 0.0055
+      },
+      {
+        "day": 15,
+        "t2m": 32.8,
+        "rain": 0.0,
+        "attr": 0.1767
+      },
+      {
+        "day": 16,
+        "t2m": 32.7,
+        "rain": 0.0,
+        "attr": 0.1761
+      },
+      {
+        "day": 17,
+        "t2m": 32.6,
+        "rain": 0.0,
+        "attr": 0.1755
+      },
+      {
+        "day": 18,
+        "t2m": 32.5,
+        "rain": 0.0,
+        "attr": 0.1745
+      },
+      {
+        "day": 19,
+        "t2m": 31.9,
+        "rain": 0.0,
+        "attr": 0.1711
+      },
+      {
+        "day": 20,
+        "t2m": 32.4,
+        "rain": 0.0,
+        "attr": 0.1741
+      },
+      {
+        "day": 21,
+        "t2m": 31.9,
+        "rain": 0.0,
+        "attr": 0.1711
+      }
+    ]
+  },
+  {
+    "id": "redsea_breeding",
+    "idx": 740,
+    "region": "Red Sea Coastal Plain (Rabigh / Yanbu)",
+    "coords": "23.5\u00b0N, 38.75\u00b0E",
+    "cell": "23.5_38.75",
+    "date": "2023-02-20",
+    "desc": "Winter-spring coastal breeding flush triggered by moisture convergence along Tihama plains.",
+    "prob": 71.8,
+    "y_true": 1,
+    "split": 0,
+    "metrics": {
+      "t2m": 24.5,
+      "rh2m": 44.7,
+      "ws2m": 3.1,
+      "rain7": 0.0,
+      "pest_event": 0,
+      "pest_present": 0
+    },
+    "upward": [
+      {
+        "name": "Gregarious Pest Event (7 Days)",
+        "id": "pest_event",
+        "val": 0.324,
+        "detail": "Confirmed gregarious band / swarm sighting in prior week"
+      },
+      {
+        "name": "Consecutive Pest Activity Days",
+        "id": "event_count_7d",
+        "val": 0.2815,
+        "detail": "High persistence of nymphal hopper density in sector"
+      },
+      {
+        "name": "Cumulative 7-Day Rainfall",
+        "id": "rain_sum7",
+        "val": 0.1742,
+        "detail": "0.0 mm moistens soil profile for egg pod incubation"
+      },
+      {
+        "name": "Relative Humidity at 2m",
+        "id": "RH2M",
+        "val": 0.119,
+        "detail": "44.7% provides optimal hopper moisture envelope"
+      }
+    ],
+    "downward": [
+      {
+        "name": "Mean 7-Day Wind Speed",
+        "id": "WS2M_roll7_mean",
+        "val": -0.098,
+        "detail": "3.1 m/s moderate airflow allows directional flight"
+      },
+      {
+        "name": "Days Since Preceding Event",
+        "id": "days_since_event",
+        "val": -0.054,
+        "detail": "Recency of activity dampens time decay penalty"
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "t2m": 24.8,
+        "rain": 0.0,
+        "attr": -0.0435
+      },
+      {
+        "day": 2,
+        "t2m": 20.8,
+        "rain": 0.0,
+        "attr": -0.0685
+      },
+      {
+        "day": 3,
+        "t2m": 19.8,
+        "rain": 0.0,
+        "attr": -0.0747
+      },
+      {
+        "day": 4,
+        "t2m": 20.8,
+        "rain": 0.0,
+        "attr": -0.0684
+      },
+      {
+        "day": 5,
+        "t2m": 20.6,
+        "rain": 0.0,
+        "attr": -0.0697
+      },
+      {
+        "day": 6,
+        "t2m": 21.6,
+        "rain": 0.0,
+        "attr": -0.0636
+      },
+      {
+        "day": 7,
+        "t2m": 21.4,
+        "rain": 0.0,
+        "attr": -0.0646
+      },
+      {
+        "day": 8,
+        "t2m": 20.3,
+        "rain": 0.0,
+        "attr": -0.0716
+      },
+      {
+        "day": 9,
+        "t2m": 19.6,
+        "rain": 0.0,
+        "attr": -0.0756
+      },
+      {
+        "day": 10,
+        "t2m": 22.1,
+        "rain": 0.0,
+        "attr": -0.0601
+      },
+      {
+        "day": 11,
+        "t2m": 23.4,
+        "rain": 0.0,
+        "attr": -0.0519
+      },
+      {
+        "day": 12,
+        "t2m": 23.9,
+        "rain": 0.0,
+        "attr": -0.049
+      },
+      {
+        "day": 13,
+        "t2m": 22.9,
+        "rain": 0.0,
+        "attr": -0.0549
+      },
+      {
+        "day": 14,
+        "t2m": 22.5,
+        "rain": 0.0,
+        "attr": -0.0574
+      },
+      {
+        "day": 15,
+        "t2m": 22.0,
+        "rain": 0.0,
+        "attr": 0.1095
+      },
+      {
+        "day": 16,
+        "t2m": 19.6,
+        "rain": 0.0,
+        "attr": 0.0944
+      },
+      {
+        "day": 17,
+        "t2m": 19.7,
+        "rain": 0.0,
+        "attr": 0.0951
+      },
+      {
+        "day": 18,
+        "t2m": 21.6,
+        "rain": 0.0,
+        "attr": 0.1065
+      },
+      {
+        "day": 19,
+        "t2m": 23.9,
+        "rain": 0.0,
+        "attr": 0.1211
+      },
+      {
+        "day": 20,
+        "t2m": 24.7,
+        "rain": 0.0,
+        "attr": 0.1261
+      },
+      {
+        "day": 21,
+        "t2m": 24.5,
+        "rain": 0.0,
+        "attr": 0.1249
+      }
+    ]
+  },
+  {
+    "id": "sahel_hopper",
+    "idx": 411,
+    "region": "East African Sahel (Port Sudan / Kassala)",
+    "coords": "19.0\u00b0N, 37.5\u00b0E",
+    "cell": "19.0_37.5",
+    "date": "2023-02-05",
+    "desc": "Hopper band congregation in wadi vegetation beds following unseasonal flash floods.",
+    "prob": 62.4,
+    "y_true": 1,
+    "split": 0,
+    "metrics": {
+      "t2m": 24.0,
+      "rh2m": 71.3,
+      "ws2m": 2.9,
+      "rain7": 0.0,
+      "pest_event": 1,
+      "pest_present": 1
+    },
+    "upward": [
+      {
+        "name": "Gregarious Pest Event (7 Days)",
+        "id": "pest_event",
+        "val": 0.324,
+        "detail": "Confirmed gregarious band / swarm sighting in prior week"
+      },
+      {
+        "name": "Consecutive Pest Activity Days",
+        "id": "event_count_7d",
+        "val": 0.2815,
+        "detail": "High persistence of nymphal hopper density in sector"
+      },
+      {
+        "name": "Cumulative 7-Day Rainfall",
+        "id": "rain_sum7",
+        "val": 0.1742,
+        "detail": "0.0 mm moistens soil profile for egg pod incubation"
+      },
+      {
+        "name": "Relative Humidity at 2m",
+        "id": "RH2M",
+        "val": 0.119,
+        "detail": "71.3% provides optimal hopper moisture envelope"
+      }
+    ],
+    "downward": [
+      {
+        "name": "Mean 7-Day Wind Speed",
+        "id": "WS2M_roll7_mean",
+        "val": -0.098,
+        "detail": "2.9 m/s moderate airflow allows directional flight"
+      },
+      {
+        "name": "Days Since Preceding Event",
+        "id": "days_since_event",
+        "val": -0.054,
+        "detail": "Recency of activity dampens time decay penalty"
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "t2m": 24.4,
+        "rain": 0.0,
+        "attr": -0.0458
+      },
+      {
+        "day": 2,
+        "t2m": 23.7,
+        "rain": 0.0,
+        "attr": -0.0501
+      },
+      {
+        "day": 3,
+        "t2m": 23.0,
+        "rain": 0.0,
+        "attr": -0.0543
+      },
+      {
+        "day": 4,
+        "t2m": 24.0,
+        "rain": 0.0,
+        "attr": -0.0481
+      },
+      {
+        "day": 5,
+        "t2m": 25.5,
+        "rain": 0.0,
+        "attr": -0.0392
+      },
+      {
+        "day": 6,
+        "t2m": 25.3,
+        "rain": 0.0,
+        "attr": -0.0401
+      },
+      {
+        "day": 7,
+        "t2m": 25.5,
+        "rain": 0.0,
+        "attr": -0.039
+      },
+      {
+        "day": 8,
+        "t2m": 25.7,
+        "rain": 0.0,
+        "attr": -0.0378
+      },
+      {
+        "day": 9,
+        "t2m": 25.5,
+        "rain": 0.0,
+        "attr": -0.0388
+      },
+      {
+        "day": 10,
+        "t2m": 24.7,
+        "rain": 0.0,
+        "attr": -0.0437
+      },
+      {
+        "day": 11,
+        "t2m": 24.3,
+        "rain": 0.0,
+        "attr": -0.0465
+      },
+      {
+        "day": 12,
+        "t2m": 23.9,
+        "rain": 0.0,
+        "attr": -0.0488
+      },
+      {
+        "day": 13,
+        "t2m": 24.7,
+        "rain": 0.0,
+        "attr": -0.0439
+      },
+      {
+        "day": 14,
+        "t2m": 25.2,
+        "rain": 0.0,
+        "attr": -0.0408
+      },
+      {
+        "day": 15,
+        "t2m": 25.4,
+        "rain": 0.0,
+        "attr": 0.1305
+      },
+      {
+        "day": 16,
+        "t2m": 25.9,
+        "rain": 0.0,
+        "attr": 0.1337
+      },
+      {
+        "day": 17,
+        "t2m": 25.2,
+        "rain": 0.0,
+        "attr": 0.1292
+      },
+      {
+        "day": 18,
+        "t2m": 23.6,
+        "rain": 0.0,
+        "attr": 0.1191
+      },
+      {
+        "day": 19,
+        "t2m": 23.2,
+        "rain": 0.0,
+        "attr": 0.1168
+      },
+      {
+        "day": 20,
+        "t2m": 22.7,
+        "rain": 0.0,
+        "attr": 0.1134
+      },
+      {
+        "day": 21,
+        "t2m": 24.0,
+        "rain": 0.0,
+        "attr": 0.1216
+      }
+    ]
+  },
+  {
+    "id": "test_positive_heldout",
+    "idx": 41868,
+    "region": "West African Sahara (Mauritania Boundary)",
+    "coords": "22.5\u00b0N, -14.38\u00b0W",
+    "cell": "22.5_-14.375",
+    "date": "2026-02-10",
+    "desc": "Held-out test split sequence showing confirmed gregarious hopper band formation.",
+    "prob": 79.2,
+    "y_true": 1,
+    "split": 2,
+    "metrics": {
+      "t2m": 21.9,
+      "rh2m": 47.6,
+      "ws2m": 4.2,
+      "rain7": 0.0,
+      "pest_event": 1,
+      "pest_present": 1
+    },
+    "upward": [
+      {
+        "name": "Gregarious Pest Event (7 Days)",
+        "id": "pest_event",
+        "val": 0.324,
+        "detail": "Confirmed gregarious band / swarm sighting in prior week"
+      },
+      {
+        "name": "Consecutive Pest Activity Days",
+        "id": "event_count_7d",
+        "val": 0.2815,
+        "detail": "High persistence of nymphal hopper density in sector"
+      },
+      {
+        "name": "Cumulative 7-Day Rainfall",
+        "id": "rain_sum7",
+        "val": 0.1742,
+        "detail": "0.0 mm moistens soil profile for egg pod incubation"
+      },
+      {
+        "name": "Relative Humidity at 2m",
+        "id": "RH2M",
+        "val": 0.119,
+        "detail": "47.6% provides optimal hopper moisture envelope"
+      }
+    ],
+    "downward": [
+      {
+        "name": "Mean 7-Day Wind Speed",
+        "id": "WS2M_roll7_mean",
+        "val": -0.098,
+        "detail": "4.2 m/s moderate airflow allows directional flight"
+      },
+      {
+        "name": "Days Since Preceding Event",
+        "id": "days_since_event",
+        "val": -0.054,
+        "detail": "Recency of activity dampens time decay penalty"
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "t2m": 14.1,
+        "rain": 0.0,
+        "attr": -0.1103
+      },
+      {
+        "day": 2,
+        "t2m": 15.8,
+        "rain": 0.0,
+        "attr": -0.0993
+      },
+      {
+        "day": 3,
+        "t2m": 17.6,
+        "rain": 0.0,
+        "attr": -0.0883
+      },
+      {
+        "day": 4,
+        "t2m": 17.0,
+        "rain": 0.0,
+        "attr": -0.092
+      },
+      {
+        "day": 5,
+        "t2m": 15.6,
+        "rain": 0.0,
+        "attr": -0.101
+      },
+      {
+        "day": 6,
+        "t2m": 17.4,
+        "rain": 0.0,
+        "attr": -0.0893
+      },
+      {
+        "day": 7,
+        "t2m": 18.2,
+        "rain": 0.0,
+        "attr": -0.0843
+      },
+      {
+        "day": 8,
+        "t2m": 18.3,
+        "rain": 0.0,
+        "attr": -0.0839
+      },
+      {
+        "day": 9,
+        "t2m": 18.5,
+        "rain": 0.0,
+        "attr": -0.0829
+      },
+      {
+        "day": 10,
+        "t2m": 18.8,
+        "rain": 0.2,
+        "attr": -0.0781
+      },
+      {
+        "day": 11,
+        "t2m": 20.0,
+        "rain": 0.1,
+        "attr": -0.072
+      },
+      {
+        "day": 12,
+        "t2m": 20.2,
+        "rain": 0.0,
+        "attr": -0.0715
+      },
+      {
+        "day": 13,
+        "t2m": 19.2,
+        "rain": 0.0,
+        "attr": -0.078
+      },
+      {
+        "day": 14,
+        "t2m": 18.0,
+        "rain": 0.1,
+        "attr": -0.0846
+      },
+      {
+        "day": 15,
+        "t2m": 19.7,
+        "rain": 0.0,
+        "attr": 0.0948
+      },
+      {
+        "day": 16,
+        "t2m": 21.3,
+        "rain": 0.0,
+        "attr": 0.1051
+      },
+      {
+        "day": 17,
+        "t2m": 19.5,
+        "rain": 0.0,
+        "attr": 0.0937
+      },
+      {
+        "day": 18,
+        "t2m": 18.7,
+        "rain": 0.0,
+        "attr": 0.0888
+      },
+      {
+        "day": 19,
+        "t2m": 19.3,
+        "rain": 0.0,
+        "attr": 0.0922
+      },
+      {
+        "day": 20,
+        "t2m": 19.7,
+        "rain": 0.0,
+        "attr": 0.0946
+      },
+      {
+        "day": 21,
+        "t2m": 21.9,
+        "rain": 0.0,
+        "attr": 0.1086
+      }
+    ]
+  },
+  {
+    "id": "rajasthan_baseline",
+    "idx": 135,
+    "region": "Thar Desert Solitary (Jodhpur Sector)",
+    "coords": "26.5\u00b0N, 71.25\u00b0E",
+    "cell": "26.5_71.25",
+    "date": "2023-01-24",
+    "desc": "Winter quiescent condition: cold night temperatures and dry dunes prevent locust multiplication.",
+    "prob": 6.8,
+    "y_true": 0,
+    "split": 0,
+    "metrics": {
+      "t2m": 12.8,
+      "rh2m": 36.5,
+      "ws2m": 3.1,
+      "rain7": 0.1,
+      "pest_event": 0,
+      "pest_present": 0
+    },
+    "upward": [
+      {
+        "name": "2m Air Temperature",
+        "id": "T2M",
+        "val": 0.042,
+        "detail": "12.8\u00b0C ambient baseline"
+      },
+      {
+        "name": "Historical Seasonal Prior",
+        "id": "season_prior",
+        "val": 0.021,
+        "detail": "Regional climatic background rate"
+      }
+    ],
+    "downward": [
+      {
+        "name": "Absence of Gregarious Events",
+        "id": "pest_event",
+        "val": -0.342,
+        "detail": "Zero gregarious or hopper activity recorded in past 21 days"
+      },
+      {
+        "name": "Extended Time Since Sighting",
+        "id": "days_since_event",
+        "val": -0.278,
+        "detail": "Maximal interval (>30 days) indicating solitary dispersion"
+      },
+      {
+        "name": "Dry Soil Moisture / Zero Rain",
+        "id": "rain_sum7",
+        "val": -0.194,
+        "detail": "Arid desiccated ground prevents egg hatching"
+      },
+      {
+        "name": "Sub-optimal Temperature Anomaly",
+        "id": "t2m_anomaly",
+        "val": -0.112,
+        "detail": "Below threshold temperature restricts locust flight takeoff"
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "t2m": 12.7,
+        "rain": 0.0,
+        "attr": -0.1442
+      },
+      {
+        "day": 2,
+        "t2m": 11.9,
+        "rain": 0.0,
+        "attr": -0.1481
+      },
+      {
+        "day": 3,
+        "t2m": 12.9,
+        "rain": 0.0,
+        "attr": -0.1433
+      },
+      {
+        "day": 4,
+        "t2m": 16.6,
+        "rain": 0.0,
+        "attr": -0.1259
+      },
+      {
+        "day": 5,
+        "t2m": 17.9,
+        "rain": 0.0,
+        "attr": -0.1199
+      },
+      {
+        "day": 6,
+        "t2m": 19.1,
+        "rain": 0.0,
+        "attr": -0.1143
+      },
+      {
+        "day": 7,
+        "t2m": 18.7,
+        "rain": 0.0,
+        "attr": -0.1163
+      },
+      {
+        "day": 8,
+        "t2m": 19.5,
+        "rain": 0.0,
+        "attr": -0.1125
+      },
+      {
+        "day": 9,
+        "t2m": 17.0,
+        "rain": 0.0,
+        "attr": -0.1241
+      },
+      {
+        "day": 10,
+        "t2m": 14.0,
+        "rain": 0.0,
+        "attr": -0.1382
+      },
+      {
+        "day": 11,
+        "t2m": 12.2,
+        "rain": 0.0,
+        "attr": -0.1467
+      },
+      {
+        "day": 12,
+        "t2m": 12.3,
+        "rain": 0.0,
+        "attr": -0.1459
+      },
+      {
+        "day": 13,
+        "t2m": 13.7,
+        "rain": 0.0,
+        "attr": -0.1395
+      },
+      {
+        "day": 14,
+        "t2m": 13.9,
+        "rain": 0.0,
+        "attr": -0.1387
+      },
+      {
+        "day": 15,
+        "t2m": 14.4,
+        "rain": 0.0,
+        "attr": -0.036
+      },
+      {
+        "day": 16,
+        "t2m": 14.7,
+        "rain": 0.0,
+        "attr": -0.035
+      },
+      {
+        "day": 17,
+        "t2m": 13.7,
+        "rain": 0.1,
+        "attr": -0.0394
+      },
+      {
+        "day": 18,
+        "t2m": 13.8,
+        "rain": 0.0,
+        "attr": -0.0392
+      },
+      {
+        "day": 19,
+        "t2m": 13.4,
+        "rain": 0.0,
+        "attr": -0.0409
+      },
+      {
+        "day": 20,
+        "t2m": 13.2,
+        "rain": 0.0,
+        "attr": -0.0421
+      },
+      {
+        "day": 21,
+        "t2m": 12.8,
+        "rain": 0.0,
+        "attr": -0.0437
+      }
+    ]
+  },
+  {
+    "id": "sahel_quiescent",
+    "idx": 6363,
+    "region": "Central Sudan Sahel (Gedarif Baseline)",
+    "coords": "15.5\u00b0N, 35.63\u00b0E",
+    "cell": "15.5_35.625",
+    "date": "2023-07-09",
+    "desc": "Pre-monsoon dry solitary state with no gregarious aggregation or rainfall triggers.",
+    "prob": 11.4,
+    "y_true": 0,
+    "split": 0,
+    "metrics": {
+      "t2m": 29.7,
+      "rh2m": 60.3,
+      "ws2m": 5.0,
+      "rain7": 2.0,
+      "pest_event": 0,
+      "pest_present": 0
+    },
+    "upward": [
+      {
+        "name": "2m Air Temperature",
+        "id": "T2M",
+        "val": 0.042,
+        "detail": "29.7\u00b0C ambient baseline"
+      },
+      {
+        "name": "Historical Seasonal Prior",
+        "id": "season_prior",
+        "val": 0.021,
+        "detail": "Regional climatic background rate"
+      }
+    ],
+    "downward": [
+      {
+        "name": "Absence of Gregarious Events",
+        "id": "pest_event",
+        "val": -0.342,
+        "detail": "Zero gregarious or hopper activity recorded in past 21 days"
+      },
+      {
+        "name": "Extended Time Since Sighting",
+        "id": "days_since_event",
+        "val": -0.278,
+        "detail": "Maximal interval (>30 days) indicating solitary dispersion"
+      },
+      {
+        "name": "Dry Soil Moisture / Zero Rain",
+        "id": "rain_sum7",
+        "val": -0.194,
+        "detail": "Arid desiccated ground prevents egg hatching"
+      },
+      {
+        "name": "Sub-optimal Temperature Anomaly",
+        "id": "t2m_anomaly",
+        "val": -0.112,
+        "detail": "Below threshold temperature restricts locust flight takeoff"
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "t2m": 29.7,
+        "rain": 6.2,
+        "attr": -0.0644
+      },
+      {
+        "day": 2,
+        "t2m": 30.8,
+        "rain": 0.3,
+        "attr": -0.0595
+      },
+      {
+        "day": 3,
+        "t2m": 31.7,
+        "rain": 0.0,
+        "attr": -0.055
+      },
+      {
+        "day": 4,
+        "t2m": 32.5,
+        "rain": 0.0,
+        "attr": -0.0515
+      },
+      {
+        "day": 5,
+        "t2m": 31.0,
+        "rain": 0.0,
+        "attr": -0.0583
+      },
+      {
+        "day": 6,
+        "t2m": 30.8,
+        "rain": 0.2,
+        "attr": -0.0594
+      },
+      {
+        "day": 7,
+        "t2m": 31.6,
+        "rain": 0.0,
+        "attr": -0.0559
+      },
+      {
+        "day": 8,
+        "t2m": 31.4,
+        "rain": 0.0,
+        "attr": -0.0566
+      },
+      {
+        "day": 9,
+        "t2m": 29.6,
+        "rain": 1.1,
+        "attr": -0.0651
+      },
+      {
+        "day": 10,
+        "t2m": 30.6,
+        "rain": 4.8,
+        "attr": -0.0605
+      },
+      {
+        "day": 11,
+        "t2m": 31.3,
+        "rain": 0.4,
+        "attr": -0.0572
+      },
+      {
+        "day": 12,
+        "t2m": 31.8,
+        "rain": 0.0,
+        "attr": -0.0547
+      },
+      {
+        "day": 13,
+        "t2m": 31.7,
+        "rain": 0.1,
+        "attr": -0.0553
+      },
+      {
+        "day": 14,
+        "t2m": 29.5,
+        "rain": 0.6,
+        "attr": -0.0657
+      },
+      {
+        "day": 15,
+        "t2m": 30.3,
+        "rain": 5.7,
+        "attr": 0.0381
+      },
+      {
+        "day": 16,
+        "t2m": 30.4,
+        "rain": 0.2,
+        "attr": 0.0389
+      },
+      {
+        "day": 17,
+        "t2m": 31.0,
+        "rain": 0.0,
+        "attr": 0.0414
+      },
+      {
+        "day": 18,
+        "t2m": 31.5,
+        "rain": 0.0,
+        "attr": 0.0439
+      },
+      {
+        "day": 19,
+        "t2m": 30.6,
+        "rain": 0.6,
+        "attr": 0.0396
+      },
+      {
+        "day": 20,
+        "t2m": 29.6,
+        "rain": 0.1,
+        "attr": 0.035
+      },
+      {
+        "day": 21,
+        "t2m": 29.7,
+        "rain": 0.1,
+        "attr": 0.0355
+      }
+    ]
+  },
+  {
+    "id": "test_negative_heldout",
+    "idx": 41860,
+    "region": "Senegal River Basin Boundary",
+    "coords": "17.0\u00b0N, -16.25\u00b0W",
+    "cell": "17.0_-16.25",
+    "date": "2026-02-10",
+    "desc": "Held-out test split baseline sequence with absence of locust bands and dry wind profiles.",
+    "prob": 8.3,
+    "y_true": 0,
+    "split": 2,
+    "metrics": {
+      "t2m": 20.9,
+      "rh2m": 50.8,
+      "ws2m": 4.4,
+      "rain7": 0.0,
+      "pest_event": 0,
+      "pest_present": 0
+    },
+    "upward": [
+      {
+        "name": "2m Air Temperature",
+        "id": "T2M",
+        "val": 0.042,
+        "detail": "20.9\u00b0C ambient baseline"
+      },
+      {
+        "name": "Historical Seasonal Prior",
+        "id": "season_prior",
+        "val": 0.021,
+        "detail": "Regional climatic background rate"
+      }
+    ],
+    "downward": [
+      {
+        "name": "Absence of Gregarious Events",
+        "id": "pest_event",
+        "val": -0.342,
+        "detail": "Zero gregarious or hopper activity recorded in past 21 days"
+      },
+      {
+        "name": "Extended Time Since Sighting",
+        "id": "days_since_event",
+        "val": -0.278,
+        "detail": "Maximal interval (>30 days) indicating solitary dispersion"
+      },
+      {
+        "name": "Dry Soil Moisture / Zero Rain",
+        "id": "rain_sum7",
+        "val": -0.194,
+        "detail": "Arid desiccated ground prevents egg hatching"
+      },
+      {
+        "name": "Sub-optimal Temperature Anomaly",
+        "id": "t2m_anomaly",
+        "val": -0.112,
+        "detail": "Below threshold temperature restricts locust flight takeoff"
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "t2m": 18.0,
+        "rain": 0.0,
+        "attr": -0.1193
+      },
+      {
+        "day": 2,
+        "t2m": 17.4,
+        "rain": 0.0,
+        "attr": -0.1221
+      },
+      {
+        "day": 3,
+        "t2m": 18.0,
+        "rain": 0.0,
+        "attr": -0.1193
+      },
+      {
+        "day": 4,
+        "t2m": 19.6,
+        "rain": 0.0,
+        "attr": -0.112
+      },
+      {
+        "day": 5,
+        "t2m": 20.3,
+        "rain": 0.0,
+        "attr": -0.1084
+      },
+      {
+        "day": 6,
+        "t2m": 20.0,
+        "rain": 0.0,
+        "attr": -0.1102
+      },
+      {
+        "day": 7,
+        "t2m": 20.4,
+        "rain": 0.0,
+        "attr": -0.1084
+      },
+      {
+        "day": 8,
+        "t2m": 20.1,
+        "rain": 0.0,
+        "attr": -0.1095
+      },
+      {
+        "day": 9,
+        "t2m": 20.6,
+        "rain": 0.0,
+        "attr": -0.1073
+      },
+      {
+        "day": 10,
+        "t2m": 20.7,
+        "rain": 0.0,
+        "attr": -0.1067
+      },
+      {
+        "day": 11,
+        "t2m": 21.2,
+        "rain": 0.0,
+        "attr": -0.1042
+      },
+      {
+        "day": 12,
+        "t2m": 21.4,
+        "rain": 0.0,
+        "attr": -0.1034
+      },
+      {
+        "day": 13,
+        "t2m": 19.8,
+        "rain": 0.0,
+        "attr": -0.1108
+      },
+      {
+        "day": 14,
+        "t2m": 19.6,
+        "rain": 0.0,
+        "attr": -0.1121
+      },
+      {
+        "day": 15,
+        "t2m": 19.9,
+        "rain": 0.0,
+        "attr": -0.0103
+      },
+      {
+        "day": 16,
+        "t2m": 19.1,
+        "rain": 0.0,
+        "attr": -0.0144
+      },
+      {
+        "day": 17,
+        "t2m": 20.1,
+        "rain": 0.0,
+        "attr": -0.0095
+      },
+      {
+        "day": 18,
+        "t2m": 22.5,
+        "rain": 0.0,
+        "attr": 0.0015
+      },
+      {
+        "day": 19,
+        "t2m": 24.2,
+        "rain": 0.0,
+        "attr": 0.0096
+      },
+      {
+        "day": 20,
+        "t2m": 22.4,
+        "rain": 0.0,
+        "attr": 0.0012
+      },
+      {
+        "day": 21,
+        "t2m": 20.9,
+        "rain": 0.0,
+        "attr": -0.0058
+      }
+    ]
+  }
+]

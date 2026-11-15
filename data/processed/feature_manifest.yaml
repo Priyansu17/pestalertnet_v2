@@ -1,0 +1,51 @@
+features:
+- T2M
+- RH2M
+- PRECTOTCORR
+- WS2M
+- w_mask_T2M
+- w_mask_RH2M
+- w_mask_PRECTOTCORR
+- w_mask_WS2M
+- pest_surveyed
+- pest_event
+- pest_present
+- T2M_roll7_mean
+- T2M_roll21_mean
+- RH2M_roll7_mean
+- RH2M_roll21_mean
+- WS2M_roll7_mean
+- rain_sum7
+- rain_sum21
+- rain_days21
+- t2m_anomaly
+- event_count_7d
+- event_count_21d
+- survey_count_21d
+- days_since_survey
+- days_since_event
+n_features: 25
+input_days: 21
+horizon: 7
+embargo_days: 28
+split_boundaries_fixed:
+  B1: '2025-06-12'
+  B2: '2026-01-12'
+train_range:
+- '2023-01-21'
+- '2025-06-05'
+val_range:
+- '2025-07-11'
+- '2026-01-05'
+test_range:
+- '2026-02-10'
+- '2026-09-08'
+sentinel_policy: -999 -> NaN + mask channel
+snap:
+  lat_step: 0.5
+  lon_step: 0.625
+label:
+  event: gregarious PRESENT (D1b)
+  universe: observed cell-days (D2a)
+  conflict: any-PRESENT-wins (D3a)
+  filter: DUBIOUS/UNCLEAR excluded (D4)

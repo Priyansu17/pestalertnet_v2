@@ -1,0 +1,2094 @@
+{
+  "thar": {
+    "row": 8131,
+    "cell": "27.5_71.25",
+    "date": "2023-08-10",
+    "y_true": 1,
+    "split": 0,
+    "prob": 65.2,
+    "prob_fraction": 0.6519,
+    "band": "Moderate model score",
+    "upward": [
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 1.561,
+        "magnitude": 1.561
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 1.35408,
+        "magnitude": 1.35408
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": 0.41754,
+        "magnitude": 0.41754
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.16771,
+        "magnitude": 0.17361
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": 0.15377,
+        "magnitude": 0.20059
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": 0.06232,
+        "magnitude": 0.16154
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": 0.05497,
+        "magnitude": 0.13955
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": 0.02518,
+        "magnitude": 0.08362
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": 0.02154,
+        "magnitude": 0.02154
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.01238,
+        "magnitude": 0.18691
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.0089,
+        "magnitude": 0.0089
+      }
+    ],
+    "downward": [
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": -0.60632,
+        "magnitude": 0.70036
+      },
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": -0.51878,
+        "magnitude": 0.73766
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": -0.3877,
+        "magnitude": 0.3877
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": -0.27408,
+        "magnitude": 0.27622
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": -0.25563,
+        "magnitude": 0.51223
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": -0.21795,
+        "magnitude": 0.21795
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.17605,
+        "magnitude": 0.17605
+      },
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.1463,
+        "magnitude": 0.23964
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": -0.12681,
+        "magnitude": 0.2809
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": -0.03151,
+        "magnitude": 0.09817
+      }
+    ],
+    "all_features": [
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 1.561,
+        "magnitude": 1.561
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 1.35408,
+        "magnitude": 1.35408
+      },
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": -0.51878,
+        "magnitude": 0.73766
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": -0.60632,
+        "magnitude": 0.70036
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": -0.25563,
+        "magnitude": 0.51223
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": 0.41754,
+        "magnitude": 0.41754
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": -0.3877,
+        "magnitude": 0.3877
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": -0.12681,
+        "magnitude": 0.2809
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": -0.27408,
+        "magnitude": 0.27622
+      },
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.1463,
+        "magnitude": 0.23964
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": -0.21795,
+        "magnitude": 0.21795
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": 0.15377,
+        "magnitude": 0.20059
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.01238,
+        "magnitude": 0.18691
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.17605,
+        "magnitude": 0.17605
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.16771,
+        "magnitude": 0.17361
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": 0.06232,
+        "magnitude": 0.16154
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": 0.05497,
+        "magnitude": 0.13955
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": -0.03151,
+        "magnitude": 0.09817
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": 0.02518,
+        "magnitude": 0.08362
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": 0.02154,
+        "magnitude": 0.02154
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.0089,
+        "magnitude": 0.0089
+      },
+      {
+        "id": "w_mask_T2M",
+        "name": "Missing temperature data flag",
+        "desc": "Binary flag: 1 when the temperature reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_RH2M",
+        "name": "Missing humidity data flag",
+        "desc": "Binary flag: 1 when the humidity reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_PRECTOTCORR",
+        "name": "Missing precipitation data flag",
+        "desc": "Binary flag: 1 when the precipitation reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_WS2M",
+        "name": "Missing wind data flag",
+        "desc": "Binary flag: 1 when the wind reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "attr": -0.00176
+      },
+      {
+        "day": 2,
+        "attr": -0.00865
+      },
+      {
+        "day": 3,
+        "attr": -0.01526
+      },
+      {
+        "day": 4,
+        "attr": -0.01137
+      },
+      {
+        "day": 5,
+        "attr": -0.0066
+      },
+      {
+        "day": 6,
+        "attr": 0.30041
+      },
+      {
+        "day": 7,
+        "attr": -0.03785
+      },
+      {
+        "day": 8,
+        "attr": -0.04379
+      },
+      {
+        "day": 9,
+        "attr": -0.04968
+      },
+      {
+        "day": 10,
+        "attr": -0.02642
+      },
+      {
+        "day": 11,
+        "attr": -0.03055
+      },
+      {
+        "day": 12,
+        "attr": -0.05404
+      },
+      {
+        "day": 13,
+        "attr": -0.10387
+      },
+      {
+        "day": 14,
+        "attr": -0.09984
+      },
+      {
+        "day": 15,
+        "attr": -0.12616
+      },
+      {
+        "day": 16,
+        "attr": -0.12411
+      },
+      {
+        "day": 17,
+        "attr": -0.1964
+      },
+      {
+        "day": 18,
+        "attr": -0.24419
+      },
+      {
+        "day": 19,
+        "attr": -0.25145
+      },
+      {
+        "day": 20,
+        "attr": -0.2353
+      },
+      {
+        "day": 21,
+        "attr": 2.46511
+      }
+    ]
+  },
+  "redsea": {
+    "row": 740,
+    "cell": "23.5_38.75",
+    "date": "2023-02-20",
+    "y_true": 1,
+    "split": 0,
+    "prob": 10.0,
+    "prob_fraction": 0.0999,
+    "band": "Lower model score",
+    "upward": [
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": 0.17822,
+        "magnitude": 0.20751
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": 0.14893,
+        "magnitude": 0.22231
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.14053,
+        "magnitude": 0.15409
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": 0.07163,
+        "magnitude": 0.07163
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.05851,
+        "magnitude": 0.06537
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": 0.0405,
+        "magnitude": 0.06817
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": 0.03635,
+        "magnitude": 0.04515
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": 0.02947,
+        "magnitude": 0.02947
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.02441,
+        "magnitude": 0.02441
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": 0.01334,
+        "magnitude": 0.03364
+      }
+    ],
+    "downward": [
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.41807,
+        "magnitude": 0.41807
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": -0.28325,
+        "magnitude": 0.28325
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.19638,
+        "magnitude": 0.19638
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": -0.08368,
+        "magnitude": 0.08368
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": -0.04826,
+        "magnitude": 0.04961
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": -0.01025,
+        "magnitude": 0.03826
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": -0.00626,
+        "magnitude": 0.01032
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.00558,
+        "magnitude": 0.02797
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.00474,
+        "magnitude": 0.02343
+      }
+    ],
+    "all_features": [
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.41807,
+        "magnitude": 0.41807
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": -0.28325,
+        "magnitude": 0.28325
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": 0.14893,
+        "magnitude": 0.22231
+      },
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": 0.17822,
+        "magnitude": 0.20751
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.19638,
+        "magnitude": 0.19638
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.14053,
+        "magnitude": 0.15409
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": -0.08368,
+        "magnitude": 0.08368
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": 0.07163,
+        "magnitude": 0.07163
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": 0.0405,
+        "magnitude": 0.06817
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.05851,
+        "magnitude": 0.06537
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": -0.04826,
+        "magnitude": 0.04961
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": 0.03635,
+        "magnitude": 0.04515
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": -0.01025,
+        "magnitude": 0.03826
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": 0.01334,
+        "magnitude": 0.03364
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": 0.02947,
+        "magnitude": 0.02947
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.00558,
+        "magnitude": 0.02797
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.02441,
+        "magnitude": 0.02441
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.00474,
+        "magnitude": 0.02343
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": -0.00626,
+        "magnitude": 0.01032
+      },
+      {
+        "id": "w_mask_T2M",
+        "name": "Missing temperature data flag",
+        "desc": "Binary flag: 1 when the temperature reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_RH2M",
+        "name": "Missing humidity data flag",
+        "desc": "Binary flag: 1 when the humidity reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_PRECTOTCORR",
+        "name": "Missing precipitation data flag",
+        "desc": "Binary flag: 1 when the precipitation reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_WS2M",
+        "name": "Missing wind data flag",
+        "desc": "Binary flag: 1 when the wind reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "attr": 0.00013
+      },
+      {
+        "day": 2,
+        "attr": -0.00012
+      },
+      {
+        "day": 3,
+        "attr": -8e-05
+      },
+      {
+        "day": 4,
+        "attr": -2e-05
+      },
+      {
+        "day": 5,
+        "attr": -0.00056
+      },
+      {
+        "day": 6,
+        "attr": -0.00082
+      },
+      {
+        "day": 7,
+        "attr": -0.00116
+      },
+      {
+        "day": 8,
+        "attr": -0.00175
+      },
+      {
+        "day": 9,
+        "attr": -0.00239
+      },
+      {
+        "day": 10,
+        "attr": -0.00249
+      },
+      {
+        "day": 11,
+        "attr": -0.003
+      },
+      {
+        "day": 12,
+        "attr": -0.00524
+      },
+      {
+        "day": 13,
+        "attr": -0.00882
+      },
+      {
+        "day": 14,
+        "attr": -0.00246
+      },
+      {
+        "day": 15,
+        "attr": -0.00967
+      },
+      {
+        "day": 16,
+        "attr": -0.01682
+      },
+      {
+        "day": 17,
+        "attr": -0.02346
+      },
+      {
+        "day": 18,
+        "attr": -0.01979
+      },
+      {
+        "day": 19,
+        "attr": 0.00264
+      },
+      {
+        "day": 20,
+        "attr": 0.01419
+      },
+      {
+        "day": 21,
+        "attr": -0.2329
+      }
+    ]
+  },
+  "sahel": {
+    "row": 411,
+    "cell": "19.0_37.5",
+    "date": "2023-02-05",
+    "y_true": 1,
+    "split": 0,
+    "prob": 89.2,
+    "prob_fraction": 0.8919,
+    "band": "Higher model score",
+    "upward": [
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 0.98555,
+        "magnitude": 0.98555
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 0.86468,
+        "magnitude": 0.86468
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": 0.24054,
+        "magnitude": 0.24054
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": 0.11935,
+        "magnitude": 0.13852
+      },
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": 0.10934,
+        "magnitude": 0.17079
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.10483,
+        "magnitude": 0.12237
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.05393,
+        "magnitude": 0.05431
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": 0.04843,
+        "magnitude": 0.06673
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": 0.04487,
+        "magnitude": 0.05385
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": 0.04455,
+        "magnitude": 0.04455
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.03452,
+        "magnitude": 0.03459
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": 0.03436,
+        "magnitude": 0.05594
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": 0.03338,
+        "magnitude": 0.03369
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": 0.02895,
+        "magnitude": 0.03892
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.01722,
+        "magnitude": 0.01722
+      }
+    ],
+    "downward": [
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.19508,
+        "magnitude": 0.24573
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.07523,
+        "magnitude": 0.07523
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": -0.04969,
+        "magnitude": 0.07173
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.0271,
+        "magnitude": 0.02808
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.00903,
+        "magnitude": 0.12796
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": -0.00154,
+        "magnitude": 0.02088
+      }
+    ],
+    "all_features": [
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 0.98555,
+        "magnitude": 0.98555
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 0.86468,
+        "magnitude": 0.86468
+      },
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.19508,
+        "magnitude": 0.24573
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": 0.24054,
+        "magnitude": 0.24054
+      },
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": 0.10934,
+        "magnitude": 0.17079
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": 0.11935,
+        "magnitude": 0.13852
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.00903,
+        "magnitude": 0.12796
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.10483,
+        "magnitude": 0.12237
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.07523,
+        "magnitude": 0.07523
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": -0.04969,
+        "magnitude": 0.07173
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": 0.04843,
+        "magnitude": 0.06673
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": 0.03436,
+        "magnitude": 0.05594
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.05393,
+        "magnitude": 0.05431
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": 0.04487,
+        "magnitude": 0.05385
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": 0.04455,
+        "magnitude": 0.04455
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": 0.02895,
+        "magnitude": 0.03892
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.03452,
+        "magnitude": 0.03459
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": 0.03338,
+        "magnitude": 0.03369
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.0271,
+        "magnitude": 0.02808
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": -0.00154,
+        "magnitude": 0.02088
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.01722,
+        "magnitude": 0.01722
+      },
+      {
+        "id": "w_mask_T2M",
+        "name": "Missing temperature data flag",
+        "desc": "Binary flag: 1 when the temperature reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_RH2M",
+        "name": "Missing humidity data flag",
+        "desc": "Binary flag: 1 when the humidity reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_PRECTOTCORR",
+        "name": "Missing precipitation data flag",
+        "desc": "Binary flag: 1 when the precipitation reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_WS2M",
+        "name": "Missing wind data flag",
+        "desc": "Binary flag: 1 when the wind reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "attr": -0.00816
+      },
+      {
+        "day": 2,
+        "attr": -0.0051
+      },
+      {
+        "day": 3,
+        "attr": -0.00188
+      },
+      {
+        "day": 4,
+        "attr": 0.00219
+      },
+      {
+        "day": 5,
+        "attr": -0.00022
+      },
+      {
+        "day": 6,
+        "attr": 0.001
+      },
+      {
+        "day": 7,
+        "attr": 0.00108
+      },
+      {
+        "day": 8,
+        "attr": -0.00084
+      },
+      {
+        "day": 9,
+        "attr": -0.00116
+      },
+      {
+        "day": 10,
+        "attr": 4e-05
+      },
+      {
+        "day": 11,
+        "attr": -0.00038
+      },
+      {
+        "day": 12,
+        "attr": 0.00141
+      },
+      {
+        "day": 13,
+        "attr": -0.00112
+      },
+      {
+        "day": 14,
+        "attr": -0.00665
+      },
+      {
+        "day": 15,
+        "attr": -0.01178
+      },
+      {
+        "day": 16,
+        "attr": -0.01838
+      },
+      {
+        "day": 17,
+        "attr": -0.00406
+      },
+      {
+        "day": 18,
+        "attr": 0.01245
+      },
+      {
+        "day": 19,
+        "attr": 0.03054
+      },
+      {
+        "day": 20,
+        "attr": 0.06291
+      },
+      {
+        "day": 21,
+        "attr": 2.35493
+      }
+    ]
+  },
+  "sahara": {
+    "row": 41868,
+    "cell": "22.5_-14.375",
+    "date": "2026-02-10",
+    "y_true": 1,
+    "split": 2,
+    "prob": 99.3,
+    "prob_fraction": 0.9932,
+    "band": "Higher model score",
+    "upward": [
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": 2.16683,
+        "magnitude": 2.16683
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": 0.96523,
+        "magnitude": 1.10159
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 0.65265,
+        "magnitude": 0.69637
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": 0.37531,
+        "magnitude": 0.37531
+      },
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 0.34502,
+        "magnitude": 0.75138
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": 0.32705,
+        "magnitude": 0.32705
+      },
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": 0.22523,
+        "magnitude": 0.42636
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": 0.1974,
+        "magnitude": 0.1974
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.13157,
+        "magnitude": 0.13201
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": 0.09373,
+        "magnitude": 0.10383
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": 0.07088,
+        "magnitude": 0.07547
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.01941,
+        "magnitude": 0.03327
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.01295,
+        "magnitude": 0.04818
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": 0.00318,
+        "magnitude": 0.04429
+      }
+    ],
+    "downward": [
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": -0.21176,
+        "magnitude": 0.32492
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": -0.07199,
+        "magnitude": 0.21727
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.05484,
+        "magnitude": 0.05484
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": -0.03452,
+        "magnitude": 0.04671
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.02945,
+        "magnitude": 0.04771
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": -0.00567,
+        "magnitude": 0.01111
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": -0.00284,
+        "magnitude": 0.00706
+      }
+    ],
+    "all_features": [
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": 2.16683,
+        "magnitude": 2.16683
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": 0.96523,
+        "magnitude": 1.10159
+      },
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 0.34502,
+        "magnitude": 0.75138
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 0.65265,
+        "magnitude": 0.69637
+      },
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": 0.22523,
+        "magnitude": 0.42636
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": 0.37531,
+        "magnitude": 0.37531
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": 0.32705,
+        "magnitude": 0.32705
+      },
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": -0.21176,
+        "magnitude": 0.32492
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": -0.07199,
+        "magnitude": 0.21727
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": 0.1974,
+        "magnitude": 0.1974
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.13157,
+        "magnitude": 0.13201
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": 0.09373,
+        "magnitude": 0.10383
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": 0.07088,
+        "magnitude": 0.07547
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.05484,
+        "magnitude": 0.05484
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.01295,
+        "magnitude": 0.04818
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.02945,
+        "magnitude": 0.04771
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": -0.03452,
+        "magnitude": 0.04671
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": 0.00318,
+        "magnitude": 0.04429
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.01941,
+        "magnitude": 0.03327
+      },
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": -0.00567,
+        "magnitude": 0.01111
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": -0.00284,
+        "magnitude": 0.00706
+      },
+      {
+        "id": "w_mask_T2M",
+        "name": "Missing temperature data flag",
+        "desc": "Binary flag: 1 when the temperature reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_RH2M",
+        "name": "Missing humidity data flag",
+        "desc": "Binary flag: 1 when the humidity reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_PRECTOTCORR",
+        "name": "Missing precipitation data flag",
+        "desc": "Binary flag: 1 when the precipitation reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_WS2M",
+        "name": "Missing wind data flag",
+        "desc": "Binary flag: 1 when the wind reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "attr": 0.05215
+      },
+      {
+        "day": 2,
+        "attr": 0.03542
+      },
+      {
+        "day": 3,
+        "attr": 0.02379
+      },
+      {
+        "day": 4,
+        "attr": 0.05446
+      },
+      {
+        "day": 5,
+        "attr": 0.06558
+      },
+      {
+        "day": 6,
+        "attr": 0.03751
+      },
+      {
+        "day": 7,
+        "attr": 0.01748
+      },
+      {
+        "day": 8,
+        "attr": 0.01123
+      },
+      {
+        "day": 9,
+        "attr": 0.01111
+      },
+      {
+        "day": 10,
+        "attr": 0.0378
+      },
+      {
+        "day": 11,
+        "attr": 0.00517
+      },
+      {
+        "day": 12,
+        "attr": 0.02462
+      },
+      {
+        "day": 13,
+        "attr": 0.0161
+      },
+      {
+        "day": 14,
+        "attr": 0.0377
+      },
+      {
+        "day": 15,
+        "attr": 0.00221
+      },
+      {
+        "day": 16,
+        "attr": 0.00852
+      },
+      {
+        "day": 17,
+        "attr": 0.08438
+      },
+      {
+        "day": 18,
+        "attr": 0.16043
+      },
+      {
+        "day": 19,
+        "attr": 0.26109
+      },
+      {
+        "day": 20,
+        "attr": 0.61949
+      },
+      {
+        "day": 21,
+        "attr": 3.60913
+      }
+    ]
+  },
+  "baseline": {
+    "row": 135,
+    "cell": "26.5_71.25",
+    "date": "2023-01-24",
+    "y_true": 0,
+    "split": 0,
+    "prob": 0.2,
+    "prob_fraction": 0.0017,
+    "band": "Lower model score",
+    "upward": [
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": 0.08866,
+        "magnitude": 0.10722
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.03925,
+        "magnitude": 0.04461
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.03796,
+        "magnitude": 0.06472
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.00371,
+        "magnitude": 0.00371
+      }
+    ],
+    "downward": [
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": -1.58606,
+        "magnitude": 1.6161
+      },
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.29925,
+        "magnitude": 0.30466
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": -0.25839,
+        "magnitude": 0.2618
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": -0.22152,
+        "magnitude": 0.22653
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": -0.16376,
+        "magnitude": 0.16376
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.12944,
+        "magnitude": 0.12944
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": -0.1221,
+        "magnitude": 0.13323
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": -0.11296,
+        "magnitude": 0.14214
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": -0.09858,
+        "magnitude": 0.09858
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": -0.08856,
+        "magnitude": 0.08856
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.06171,
+        "magnitude": 0.06171
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": -0.04209,
+        "magnitude": 0.04209
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": -0.03421,
+        "magnitude": 0.03671
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": -0.01346,
+        "magnitude": 0.02438
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.00475,
+        "magnitude": 0.01797
+      }
+    ],
+    "all_features": [
+      {
+        "id": "rain_days21",
+        "name": "Rainy days (21 days)",
+        "desc": "Number of days with more than 0.5 mm rain in the 21-day window (count, standardized).",
+        "signed": -1.58606,
+        "magnitude": 1.6161
+      },
+      {
+        "id": "survey_count_21d",
+        "name": "Pest surveys (21 days)",
+        "desc": "Number of surveyed days in the 21-day window (count, standardized).",
+        "signed": -0.29925,
+        "magnitude": 0.30466
+      },
+      {
+        "id": "T2M_roll7_mean",
+        "name": "Mean temperature (7 days)",
+        "desc": "Average temperature over the last 7 days (standardized).",
+        "signed": -0.25839,
+        "magnitude": 0.2618
+      },
+      {
+        "id": "T2M",
+        "name": "Temperature (last day)",
+        "desc": "Air temperature at 2 m on the most recent day (deg C, standardized).",
+        "signed": -0.22152,
+        "magnitude": 0.22653
+      },
+      {
+        "id": "event_count_7d",
+        "name": "Pest events (7 days)",
+        "desc": "Number of gregarious pest-event days in the last 7 days (count, standardized).",
+        "signed": -0.16376,
+        "magnitude": 0.16376
+      },
+      {
+        "id": "T2M_roll21_mean",
+        "name": "Mean temperature (21 days)",
+        "desc": "Average temperature over the full 21-day input window (standardized).",
+        "signed": -0.11296,
+        "magnitude": 0.14214
+      },
+      {
+        "id": "t2m_anomaly",
+        "name": "Temperature anomaly (7 vs 21 days)",
+        "desc": "Last-7-day mean temperature minus the 21-day mean, a within-window anomaly (standardized).",
+        "signed": -0.1221,
+        "magnitude": 0.13323
+      },
+      {
+        "id": "event_count_21d",
+        "name": "Pest events (21 days)",
+        "desc": "Number of gregarious pest-event days in the 21-day window (count, standardized).",
+        "signed": -0.12944,
+        "magnitude": 0.12944
+      },
+      {
+        "id": "rain_sum21",
+        "name": "Total rainfall (21 days)",
+        "desc": "Sum of precipitation over the full 21-day input window (mm, standardized).",
+        "signed": 0.08866,
+        "magnitude": 0.10722
+      },
+      {
+        "id": "days_since_event",
+        "name": "Days since last pest event",
+        "desc": "Days since the most recent gregarious event, capped at 30 (30 = none in window; standardized).",
+        "signed": -0.09858,
+        "magnitude": 0.09858
+      },
+      {
+        "id": "WS2M_roll7_mean",
+        "name": "Mean wind speed (7 days)",
+        "desc": "Average wind speed over the last 7 days (standardized).",
+        "signed": -0.08856,
+        "magnitude": 0.08856
+      },
+      {
+        "id": "days_since_survey",
+        "name": "Days since last survey",
+        "desc": "Days since the most recent survey, capped at 30 (30 = none in window; standardized).",
+        "signed": 0.03796,
+        "magnitude": 0.06472
+      },
+      {
+        "id": "rain_sum7",
+        "name": "Total rainfall (7 days)",
+        "desc": "Sum of precipitation over the last 7 days (mm, standardized).",
+        "signed": -0.06171,
+        "magnitude": 0.06171
+      },
+      {
+        "id": "PRECTOTCORR",
+        "name": "Precipitation (last day)",
+        "desc": "Corrected total precipitation on the most recent day (mm/day, standardized).",
+        "signed": 0.03925,
+        "magnitude": 0.04461
+      },
+      {
+        "id": "RH2M_roll21_mean",
+        "name": "Mean humidity (21 days)",
+        "desc": "Average relative humidity over the full 21-day input window (standardized).",
+        "signed": -0.04209,
+        "magnitude": 0.04209
+      },
+      {
+        "id": "WS2M",
+        "name": "Wind speed (last day)",
+        "desc": "Wind speed at 2 m on the most recent day (m/s, standardized).",
+        "signed": -0.03421,
+        "magnitude": 0.03671
+      },
+      {
+        "id": "RH2M",
+        "name": "Relative humidity (last day)",
+        "desc": "Relative humidity at 2 m on the most recent day (%, standardized).",
+        "signed": -0.01346,
+        "magnitude": 0.02438
+      },
+      {
+        "id": "RH2M_roll7_mean",
+        "name": "Mean humidity (7 days)",
+        "desc": "Average relative humidity over the last 7 days (standardized).",
+        "signed": -0.00475,
+        "magnitude": 0.01797
+      },
+      {
+        "id": "pest_surveyed",
+        "name": "Pest survey in last 7 days",
+        "desc": "1 if at least one pest survey was recorded in the last 7 days.",
+        "signed": 0.00371,
+        "magnitude": 0.00371
+      },
+      {
+        "id": "w_mask_T2M",
+        "name": "Missing temperature data flag",
+        "desc": "Binary flag: 1 when the temperature reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_RH2M",
+        "name": "Missing humidity data flag",
+        "desc": "Binary flag: 1 when the humidity reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_PRECTOTCORR",
+        "name": "Missing precipitation data flag",
+        "desc": "Binary flag: 1 when the precipitation reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "w_mask_WS2M",
+        "name": "Missing wind data flag",
+        "desc": "Binary flag: 1 when the wind reading was missing in the source data.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "pest_event",
+        "name": "Gregarious pest event in last 7 days",
+        "desc": "1 if a gregarious-form pest event was recorded in the last 7 days.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      },
+      {
+        "id": "pest_present",
+        "name": "Pests recorded present in last 7 days",
+        "desc": "1 if pests of any form were recorded present in the last 7 days.",
+        "signed": 0.0,
+        "magnitude": 0.0
+      }
+    ],
+    "timeline": [
+      {
+        "day": 1,
+        "attr": -0.12416
+      },
+      {
+        "day": 2,
+        "attr": -0.14689
+      },
+      {
+        "day": 3,
+        "attr": -0.15304
+      },
+      {
+        "day": 4,
+        "attr": -0.15065
+      },
+      {
+        "day": 5,
+        "attr": -0.14425
+      },
+      {
+        "day": 6,
+        "attr": -0.13727
+      },
+      {
+        "day": 7,
+        "attr": -0.12907
+      },
+      {
+        "day": 8,
+        "attr": -0.11187
+      },
+      {
+        "day": 9,
+        "attr": -0.1087
+      },
+      {
+        "day": 10,
+        "attr": -0.10644
+      },
+      {
+        "day": 11,
+        "attr": -0.10263
+      },
+      {
+        "day": 12,
+        "attr": -0.0968
+      },
+      {
+        "day": 13,
+        "attr": -0.08665
+      },
+      {
+        "day": 14,
+        "attr": -0.07887
+      },
+      {
+        "day": 15,
+        "attr": -0.06945
+      },
+      {
+        "day": 16,
+        "attr": -0.05726
+      },
+      {
+        "day": 17,
+        "attr": -0.05162
+      },
+      {
+        "day": 18,
+        "attr": -0.04745
+      },
+      {
+        "day": 19,
+        "attr": -0.07416
+      },
+      {
+        "day": 20,
+        "attr": -0.12906
+      },
+      {
+        "day": 21,
+        "attr": -0.96095
+      }
+    ]
+  }
+}

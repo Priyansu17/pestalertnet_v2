@@ -1,0 +1,78 @@
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+S4 samples=51483 trimmed_left=654 censored_right=26
+S6 positives=8814 rate=17.12%
+S7 embargo_dropped=2939 train=35583 val=6277 test=6684
+  train: n=35583 pos=6025 rate=16.93%
+  val: n=6277 pos=1013 rate=16.14%
+  test: n=6684 pos=1320 rate=19.75%
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+S4 samples=51483 trimmed_left=654 censored_right=26
+S6 positives=8814 rate=17.12%
+S7 embargo_dropped=2939 train=35583 val=6277 test=6684
+  train: n=35583 pos=6025 rate=16.93%
+  val: n=6277 pos=1013 rate=16.14%
+  test: n=6684 pos=1320 rate=19.75%
+S4 samples=51483 trimmed_left=654 censored_right=26
+S6 positives=8814 rate=17.12%
+S7 embargo_dropped=2939 train=35583 val=6277 test=6684
+  train: n=35583 pos=6025 rate=16.93%
+  val: n=6277 pos=1013 rate=16.14%
+  test: n=6684 pos=1320 rate=19.75%
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+S4 samples=51483 trimmed_left=654 censored_right=26
+S6 positives=8814 rate=17.12%
+S7 embargo_dropped=2939 train=35583 val=6277 test=6684
+  train: n=35583 pos=6025 rate=16.93%
+  val: n=6277 pos=1013 rate=16.14%
+  test: n=6684 pos=1320 rate=19.75%
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+S4 samples=51483 trimmed_left=654 censored_right=26
+S6 positives=8814 rate=17.12%
+S7 embargo_dropped=2939 train=35583 val=6277 test=6684
+  train: n=35583 pos=6025 rate=16.93%
+  val: n=6277 pos=1013 rate=16.14%
+  test: n=6684 pos=1320 rate=19.75%
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+S4 samples=51483 trimmed_left=654 censored_right=26
+S6 positives=8814 rate=17.12%
+S7 embargo_dropped=2939 train=35583 val=6277 test=6684
+  train: n=35583 pos=6025 rate=16.93%
+  val: n=6277 pos=1013 rate=16.14%
+  test: n=6684 pos=1320 rate=19.75%
+S8 |z|>12 count=2831 (logged only; no clipping applied)
+S8 train-only scaling done (18 continuous, 7 binary untouched)
+S9 artifacts written: sequences.npz X=(48544, 21, 25) pos=8358
+=== Phase 2 build start ===
+S1/S2 kept=176071 excluded=10 event_cells=655 event_days_total=8082
+S3 weather grid=(2070, 1354, 4) cells_covered=2070 sentinel_nans=7488
+S4 samples=51483 trimmed_left=654 censored_right=26
+S6 positives=8814 rate=17.12%
+S7 embargo_dropped=2939 train=35583 val=6277 test=6684
+  train: n=35583 pos=6025 rate=16.93%
+  val: n=6277 pos=1013 rate=16.14%
+  test: n=6684 pos=1320 rate=19.75%
+S8 |z|>12 count=2831 (logged only; no clipping applied)
+S8 train-only scaling done (18 continuous, 7 binary untouched)
+S9 artifacts written: sequences.npz X=(48544, 21, 25) pos=8358

@@ -1,0 +1,60 @@
+# =============================================================================
+# PestAlertNet - Project Configuration
+# =============================================================================
+# All constants below are LOCKED by the approved decision sheet.
+# Do not modify without raising an explicit question to the project owner.
+#
+# Status: Phase 0 (skeleton). Labeling and data-source fields are
+# intentionally left as commented placeholders until Phase 1c resolves
+# which labeling rule applies to the real data.
+# =============================================================================
+
+# --- Architecture constants (Decision Sheet #1) ---
+input_window_days: 21          # historical days fed to the model
+prediction_horizon_days: 7     # outbreak predicted within days t+1..t+7
+sample_footprint_days: 28      # input window + horizon (21 + 7)
+embargo_days: 28               # gap at train|val and val|test boundaries
+
+# --- Model hyperparameters (Architecture L3) ---
+lstm_layers: 2
+lstm_bidirectional: true
+transformer_layers: 2
+transformer_heads: 4
+d_model: 64
+d_ff: 256
+dropout: 0.1
+
+# --- Training (Architecture L4) ---
+seed: 42
+batch_size: 32
+lr: 0.001
+weight_decay: 0.01
+lr_patience: 5                 # ReduceLROnPlateau patience
+lr_factor: 0.5                 # ReduceLROnPlateau factor
+max_epochs: 100
+early_stop_patience: 15
+
+# --- Data source (Decision Sheet #2) ---
+# Set after Phase 1a/1b resolves which source is used.
+# data_source: "croppest_dss" | "fao_locust"
+primary_attempt_timeout_minutes: 20
+
+# --- Labeling rule (Decision Sheet #4) ---
+# Priority order: fao_official -> etl -> statistical.
+# Implemented only after Phase 1c approval; do not pre-fill.
+# label_rule: "fao_official" | "etl" | "statistical"
+# statistical_rule:
+#   multiplier: 1.4             # pest_count(t) >= 1.4 x rolling_mean(30d)
+#   rolling_window_days: 30
+#   floor: 8                    # and >= max(8, p50 for that location)
+#   percentile: 50
+
+# --- Class-balance guardrail (approved Conflict 3 resolution) ---
+min_positives_per_split: 30    # stop and ask if any split has fewer
+
+# --- Paths (relative to project root pestalertnet_v2/) ---
+paths:
+  raw_data: data/raw
+  processed_data: data/processed
+  models: models
+  outputs: outputs

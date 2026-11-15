@@ -1,0 +1,20 @@
+# =============================================================================
+# PestAlertNet - Approved dependency set (Decision Sheet #5)
+# Python 3.11 | Primary training env: Google Colab T4 GPU | CPU fallback supported
+# No substitutions or additions without explicit project-owner approval.
+# =============================================================================
+
+torch>=2.0
+captum>=0.6
+scikit-learn>=1.3
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+seaborn>=0.12
+streamlit>=1.25
+plotly>=5.15
+
+# --- Approved additions (Conflict resolution, Phase 0) ---
+requests>=2.31      # NASA POWER API client (required if FAO fallback fires)
+pyyaml>=6.0         # config.yaml parsing
+tqdm>=4.65          # progress bars during training/ingestion
