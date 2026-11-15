@@ -513,10 +513,17 @@ html_content = f"""<!DOCTYPE html>
         padding: 0.45rem 0.75rem !important;
         font-size: 0.75rem !important;
       }}
-      /* Interactive Leaflet Map: responsive touch view */
+      /* Interactive Leaflet Map: responsive touch view & controls */
       #interactiveLeafletMap {{
-        height: 240px !important;
+        height: 250px !important;
         touch-action: pan-x pan-y !important;
+      }}
+      .leaflet-top.leaflet-right .leaflet-control-layers {{
+        margin-top: 8px !important;
+        margin-right: 8px !important;
+        font-size: 11px !important;
+        background: rgba(10, 18, 14, 0.9) !important;
+        color: #e2e8f0 !important;
       }}
       /* Compare zone dropdowns: stack vertically on mobile screens */
       #compareSelectA, #compareSelectB {{
@@ -524,18 +531,34 @@ html_content = f"""<!DOCTYPE html>
         width: 100% !important;
         margin-top: 0.35rem;
       }}
-      /* Operational action buttons on phone: wrap neatly */
-      .op-action-wrap {{
-        display: flex;
-        flex-wrap: wrap !important;
-        gap: 0.4rem !important;
+      /* Operational action buttons on phone: clean 2x2 grid */
+      #tabPanel-risk .grid.grid-cols-2 button {{
+        white-space: nowrap !important;
+        font-size: 11px !important;
+        padding: 0.55rem 0.4rem !important;
+        justify-content: center !important;
+        text-align: center !important;
       }}
-      .op-action-wrap button, .op-action-wrap a {{
-        flex: 1 1 calc(50% - 0.3rem) !important;
-        min-width: 130px;
-        font-size: 0.72rem !important;
-        padding: 0.5rem 0.6rem !important;
-        justify-content: center;
+      /* Floating Mascot Companion: compact on phone */
+      #companionContainer {{
+        bottom: 0.75rem !important;
+        right: 0.75rem !important;
+        max-width: calc(100vw - 1.5rem) !important;
+      }}
+      #btnMascotAvatar {{
+        width: 44px !important;
+        height: 44px !important;
+        padding: 2px !important;
+      }}
+      #btnMascotAvatar svg {{
+        width: 32px !important;
+        height: 32px !important;
+      }}
+      #characterSpeechBubble {{
+        max-width: calc(100vw - 4.5rem) !important;
+        font-size: 0.75rem !important;
+        padding: 0.75rem !important;
+        line-height: 1.4 !important;
       }}
       /* Tooltip popup on touch screens: prevent bleeding past viewport */
       .info-tip:hover::after {{
@@ -545,10 +568,10 @@ html_content = f"""<!DOCTYPE html>
         max-width: 80vw !important;
         width: 220px !important;
       }}
-      /* Mascot scaled for mobile */
-      .animate-mascot-bob svg {{
-        max-width: 110px !important;
-        height: auto !important;
+      /* Scaled dial container for narrow phone screens */
+      .dial-container {{
+        transform: scale(0.92);
+        transform-origin: center center;
       }}
     }}
 
@@ -1431,7 +1454,7 @@ html_content = f"""<!DOCTYPE html>
               <span class="text-xs font-mono font-bold uppercase text-brandEmerald-400">📥 Operational Exports &amp; Reports</span>
               <span class="text-[11px] hidden sm:inline" style="color: var(--text-muted);">(Export cell data or print 1-page situational brief)</span>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="grid grid-cols-2 sm:flex sm:items-center gap-2 w-full sm:w-auto">
               <button onclick="downloadCellCSV()" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/40 hover:bg-brandEmerald-500/30 transition-all flex items-center gap-1.5 shadow-sm">
                 <span>📥</span> Download CSV
               </button>
@@ -1485,10 +1508,12 @@ html_content = f"""<!DOCTYPE html>
               <div class="flex items-center gap-2">
                 <span class="text-lg">🛰️</span>
                 <div>
-                  <h3 class="font-display font-bold text-sm sm:text-base flex items-center gap-2" style="color: var(--text-primary);">
-                    Interactive Recession Belt Geospatial Map
-                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/30">Satellite &bull; Terrain &bull; Dark</span>
-                  </h3>
+                  <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <h3 class="font-display font-bold text-sm sm:text-base" style="color: var(--text-primary);">
+                      Recession Belt Geospatial Map
+                    </h3>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-brandEmerald-500/20 text-brandEmerald-400 border border-brandEmerald-500/30 whitespace-nowrap">Satellite &bull; Terrain &bull; Dark</span>
+                  </div>
                   <p class="text-[11px]" style="color: var(--text-muted);">Switch between Satellite imagery (Esri), Topographic terrain (OpenTopoMap), and Carto Dark basemaps &bull; Click any pulsating marker to inspect</p>
                 </div>
               </div>
@@ -2071,8 +2096,8 @@ html_content = f"""<!DOCTYPE html>
   <!-- ========================================================================= -->
   <div id="companionContainer" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-end gap-2 sm:gap-3 max-w-[calc(100vw-2rem)] sm:max-w-sm pointer-events-none">
     
-    <!-- Dynamic Speech Bubble -->
-    <div id="characterSpeechBubble" class="pointer-events-auto p-3.5 sm:p-4 rounded-2xl glass-surface border shadow-2xl space-y-2 animate-speech-bubble" style="background: var(--glass-surface); border-color: var(--accent-badge-border); box-shadow: var(--neon-glow-emerald);">
+    <!-- Dynamic Speech Bubble (collapsed on mobile by default) -->
+    <div id="characterSpeechBubble" class="hidden sm:block pointer-events-auto p-3 sm:p-4 rounded-2xl glass-surface border shadow-2xl space-y-2 animate-speech-bubble max-w-[280px] sm:max-w-sm" style="background: var(--glass-surface); border-color: var(--accent-badge-border); box-shadow: var(--neon-glow-emerald);">
       <div class="flex items-center justify-between text-xs">
         <span class="font-bold flex items-center gap-1.5 text-brandEmerald-500">
           <span>🦗</span> Dr. Hopper (Bioclimatic Guide)
@@ -2093,7 +2118,7 @@ html_content = f"""<!DOCTYPE html>
     </div>
 
     <!-- 2D Character Avatar Button -->
-    <button onclick="toggleCompanionSpeech()" id="btnMascotAvatar" class="pointer-events-auto w-13 h-13 sm:w-16 sm:h-16 rounded-full glass-surface border p-1 shadow-2xl flex items-center justify-center shrink-0 hover:scale-110 transition-transform active:scale-95" style="border-color: var(--accent-badge-border); box-shadow: var(--neon-glow-emerald);" title="Click to chat with Dr. Hopper">
+    <button onclick="toggleCompanionSpeech()" id="btnMascotAvatar" class="pointer-events-auto w-11 h-11 sm:w-16 sm:h-16 rounded-full glass-surface border p-1 shadow-2xl flex items-center justify-center shrink-0 hover:scale-110 transition-transform active:scale-95" style="border-color: var(--accent-badge-border); box-shadow: var(--neon-glow-emerald);" title="Click to chat with Dr. Hopper">
       <svg viewBox="0 0 100 100" class="w-full h-full animate-mascot-bob">
         <circle cx="50" cy="50" r="45" fill="#064E3B" opacity="0.3"/>
         <circle cx="50" cy="46" r="22" fill="#34D399" />
@@ -2374,7 +2399,10 @@ html_content = f"""<!DOCTYPE html>
       const text = document.getElementById('characterSpeechText');
       if (text) text.innerText = speechText;
       const bubble = document.getElementById('characterSpeechBubble');
-      if (bubble && bubble.classList.contains('hidden')) bubble.classList.remove('hidden');
+      // Auto-open speech bubble only on tablet/desktop (>= 640px). On phones, let user tap the avatar icon to view.
+      if (window.innerWidth >= 640 && bubble && bubble.classList.contains('hidden')) {{
+        bubble.classList.remove('hidden');
+      }}
     }}
 
     // Image Lightbox
