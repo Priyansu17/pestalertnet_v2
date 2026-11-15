@@ -2915,29 +2915,32 @@ html_content = f"""<!DOCTYPE html>
       const band = document.getElementById("cardMetricBand") ? document.getElementById("cardMetricBand").innerText : "Moderate model score";
       const date = document.getElementById("cardMetricDate") ? document.getElementById("cardMetricDate").innerText : "2023-08-10";
       
-      let csv = "PestAlertNet - Agricultural Field Situation Report\n";
-      csv += "Parameter,Value\n";
-      csv += `Grid Location Cell,${{cellKey}}\n`;
-      csv += `Sequence Date,${{date}}\n`;
-      csv += `Predicted Outbreak Likelihood,${{prob}}\n`;
-      csv += `Model Score Band,${{band}}\n`;
-      csv += "Input Window,21 days\n";
-      csv += "Forecasting Horizon,7 days ahead\n";
-      csv += "Model Checkpoint,models/best_model.pt (Frozen BiLSTM + Attention)\n";
-      csv += "Data Lineage,FAO RAMSES Ground Surveys + NASA POWER Climatology (Historical Research Database)\n\n";
+      const rows = [
+        "PestAlertNet - Agricultural Field Situation Report",
+        "Parameter,Value",
+        "Grid Location Cell," + cellKey,
+        "Sequence Date," + date,
+        "Predicted Outbreak Likelihood," + prob,
+        "Model Score Band," + band,
+        "Input Window,21 days",
+        "Forecasting Horizon,7 days ahead",
+        "Model Checkpoint,models/best_model.pt (Frozen BiLSTM + Attention)",
+        "Data Lineage,FAO RAMSES Ground Surveys + NASA POWER Climatology",
+        "",
+        "Key Atmospheric & Agronomic Factors",
+        "Feature Name,Description,Impact",
+        "PRECTOTCORR,Corrected Daily Precipitation,Primary egg incubation driver",
+        "T2M,2-Meter Air Temperature,Biological maturation rate",
+        "RH2M,2-Meter Relative Humidity,Vegetation moisture & hopper survival",
+        "WS2M,2-Meter Wind Speed,Swarm flight & advection direction"
+      ];
       
-      csv += "Key Atmospheric & Agronomic Factors\n";
-      csv += "Feature Name,Description,Impact\n";
-      csv += "PRECTOTCORR,Corrected Daily Precipitation,Primary egg incubation driver\n";
-      csv += "T2M,2-Meter Air Temperature,Biological maturation rate\n";
-      csv += "RH2M,2-Meter Relative Humidity,Vegetation moisture & hopper survival\n";
-      csv += "WS2M,2-Meter Wind Speed,Swarm flight & advection direction\n";
-      
-      const blob = new Blob([csv], {{ type: "text/csv;charset=utf-8;" }});
+      const csvContent = rows.join(String.fromCharCode(13, 10));
+      const blob = new Blob([csvContent], {{ type: "text/csv;charset=utf-8;" }});
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.setAttribute("href", url);
-      link.setAttribute("download", `pestalertnet_report_${{cellKey}}_${{date}}.csv`);
+      link.setAttribute("download", "pestalertnet_report_" + cellKey + "_" + date + ".csv");
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
